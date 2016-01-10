@@ -15,26 +15,41 @@ set( CMAKE_CXX_FLAGS  "-std=c++11" )
 # snowball lib
 #===============================================================================
 
+#Manage version number
+set (SNOWBALL_VERSION_MAJOR 0)
+set (SNOWBALL_VERSION_MINOR 1)
+set (SNOWBALL_VERSION_PATCH 0)
+
+#Tune the header file accordingly
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/src/version.h"
+  )
+
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/src")
+
+#Get all source files
 file(
     GLOB_RECURSE
     snowball_src
     src/*
     )
 
+#Create library
 add_library(
     snowball STATIC
     ${snowball_src}
-    )
+    )    
 
 #===============================================================================
 # Unit tests
 #===============================================================================
 
+#Get tests source files
 file(
     GLOB_RECURSE
     snowball_test
     tests/*
-    src/*
     )
 
 add_executable(
@@ -45,12 +60,17 @@ add_executable(
 target_include_directories(
     snowball_test
     PUBLIC
-    src/subprocess
+    src/
 )
+
+target_link_libraries(snowball_test snowball)
 
 add_custom_target(
     test
+    #run verbose
     bin/snowball_test -s -d yes
+    #stops at first error
+    #bin/snowball_test -a
     DEPENDS bin/snowball_test
     )
     

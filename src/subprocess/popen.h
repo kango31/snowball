@@ -2,8 +2,8 @@
  * @file
  */
 
-#ifndef POPEN_H
-#define POPEN_H
+#ifndef SNOWBALL_POPEN_H
+#define SNOWBALL_POPEN_H
 
 #include <unistd.h>
 #include <sys/wait.h>
@@ -190,7 +190,7 @@ private:
     
 friend Popen;
 
-};
+}; //end of Redirection class
 
 static const Redirection NONE(Redirection::Target::None);
 static const Redirection STDOUT(Redirection::Target::Stdout);
@@ -378,7 +378,7 @@ private:
     static ssize_t readFromPipe(int fildes, 
                                 std::string& msg, 
                                 int buffer_size = 1024);
-};
+}; //end of Popen class
 
 } //end of snowball namespace
 

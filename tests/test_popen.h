@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#include "popen.h"
+#include "subprocess/popen.h"
 
 using namespace snowball;
 
@@ -265,10 +265,10 @@ TEST_CASE("Redirection class", "[popen]")
 
 TEST_CASE("Popen class", "[popen]")
 {
-    std::vector<std::string> args1;
-    args1.push_back("echo");
+    std::vector<std::string> args1 {"echo", "hello", "world"};
+/*    args1.push_back("echo");
     args1.push_back("hello");
-    args1.push_back("world");
+    args1.push_back("world");*/
     
     GenerateFile1 script1("script1.sh");
     
