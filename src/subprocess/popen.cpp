@@ -132,6 +132,14 @@ int Redirection::fileDescriptor() const
 
 
 //=============================================================================
+// Static variables
+//=============================================================================
+
+const Redirection snowball::NONE(Redirection::Target::None);
+const Redirection snowball::STDOUT(Redirection::Target::Stdout);
+const Redirection snowball::PIPE(Redirection::Target::Pipe);
+
+//=============================================================================
 // Popen class
 //=============================================================================
 

@@ -18,7 +18,10 @@
 #include <vector>
 #include <fstream>
 
-
+/**
+ * @namespace snowball
+ * @brief main namespace of snowball library
+ */
 namespace snowball
 {
 //forward declaration for friendship within Redirection class
@@ -192,9 +195,9 @@ friend Popen;
 
 }; //end of Redirection class
 
-static const Redirection NONE(Redirection::Target::None);
-static const Redirection STDOUT(Redirection::Target::Stdout);
-static const Redirection PIPE(Redirection::Target::Pipe);
+extern const Redirection NONE;
+extern const Redirection STDOUT;
+extern const Redirection PIPE;
 
 class Popen
 {

@@ -31,10 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 The following macros are defined from CMake
 */
 
-#define SNOWBALL_VERSION_MAJOR @SNOWBALL_VERSION_MAJOR@
-#define SNOWBALL_VERSION_MINOR @SNOWBALL_VERSION_MINOR@
-#define SNOWBALL_VERSION_PATCH @SNOWBALL_VERSION_PATCH@
+//#define SNOWBALL_VERSION_MAJOR @SNOWBALL_VERSION_MAJOR@
+//#define SNOWBALL_VERSION_MINOR @SNOWBALL_VERSION_MINOR@
+//#define SNOWBALL_VERSION_PATCH @SNOWBALL_VERSION_PATCH@
 
+/**
+ * @namespace snowball
+ * @brief main namespace of snowball library
+ */
 namespace snowball
 {
 
