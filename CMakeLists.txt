@@ -19,14 +19,9 @@ set( CMAKE_CXX_FLAGS  "-std=c++11" )
 set (SNOWBALL_VERSION_MAJOR 0)
 set (SNOWBALL_VERSION_MINOR 1)
 set (SNOWBALL_VERSION_PATCH 0)
-
-#Tune the header file accordingly
-configure_file (
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/src/version.h"
-  )
-
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/src")
+add_definitions(-DSNOWBALL_VERSION_MAJOR=${SNOWBALL_VERSION_MAJOR})
+add_definitions(-DSNOWBALL_VERSION_MINOR=${SNOWBALL_VERSION_MINOR})
+add_definitions(-DSNOWBALL_VERSION_PATCH=${SNOWBALL_VERSION_PATCH})
 
 #Get all source files
 file(

@@ -32,11 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * __FILE__, __FUNCTION__, __LINE__ arguments
  * 
  */ 
-#define throwExtended(Exception, msg) throw Exception(msg, __FILE__, \
-                                                       __FUNCTION__, \
-                                                       __LINE__)
+#define THROW(Exception, msg) throw Exception(msg, __FILE__, \
+                                              __FUNCTION__,  \
+                                              __LINE__)
 
-
+/**
+ * @namespace snowball
+ * @brief main namespace of snowball library
+ */
 namespace snowball
 {
 
@@ -118,7 +121,8 @@ class BaseException: public std::exception
 };
 
 /**
- * Generic Exception
+ * Generic Exception.
+ * Any exception thrown by snowball is a instance of Exception class.
  */
 
 class Exception: private BaseException
@@ -155,7 +159,6 @@ class Exception: private BaseException
     */
     virtual const char* what() const noexcept;
 };
-
 
 
 /**

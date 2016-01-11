@@ -8,25 +8,25 @@ using namespace snowball;
 
 void throwBaseException()
 {
-    throwExtended(BaseException, "this is a test exception");
+    THROW(BaseException, "this is a test exception");
 }
 
 
 void throwException()
 {
-    throwExtended(Exception, "this is an exception");
+    THROW(Exception, "this is an exception");
 }
 
 
 void throwIndexError()
 {
-    throwExtended(IndexError, "this is an index error");
+    THROW(IndexError, "this is an index error");
 }
 
 
 void throwValueError()
 {
-    throwExtended(ValueError, "this is a value error");
+    THROW(ValueError, "this is a value error");
 }
 
 
