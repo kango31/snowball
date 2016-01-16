@@ -6,67 +6,52 @@ using namespace snowball;
 
 
 //=============================================================================
-// BaseException class
+// Exception class
 //=============================================================================
 
 //Constructor
 
-BaseException::BaseException(string msg): message(msg)
+Exception::Exception(string msg): m_message(msg)
 {
-    function = "";
-    filename = "";
-    lineno = 0;
+    m_function = "";
+    m_filename = "";
+    m_lineno = 0;
 }
 
-BaseException::BaseException(string msg, string file, string func, int lineno): 
-    message(msg), function(func), filename(file), lineno(lineno) {}
+Exception::Exception(string msg, string file, string func, int lineno): 
+    m_message(msg), m_function(func), m_filename(file), m_lineno(lineno) {}
 
 //Destructor
 
-BaseException::~BaseException() { }
+Exception::~Exception() { }
 
 //Methods
 
-const string BaseException::get_function() const
+const string Exception::get_function() const
 {
-    return function;
+    return m_function;
 }
 
-const string BaseException::get_filename() const
+const string Exception::get_filename() const
 {
-    return filename;
+    return m_filename;
 }
 
-const int BaseException::get_lineno() const
+const int Exception::get_lineno() const
 {
-    return lineno;
+    return m_lineno;
 }
 
-const bool BaseException::is_extended() const
+const bool Exception::is_extended() const
 {
-    return lineno != 0;
+    return m_lineno != 0;
 }
 
-const string BaseException::get_message() const
+const string Exception::get_message() const
 {
-    return message;
+    return m_message;
 }
 
-//=============================================================================
-// Exception
-//=============================================================================
-
-//Constructor
-
-Exception::Exception(string msg): Exception(msg) {}
-
-Exception::Exception(string msg, string filename, string func, int lineno): 
-    BaseException(msg, filename, func, lineno) {}
-    
-//Destructor
-Exception::~Exception() {}
-
-//what method
 const char* Exception::what() const noexcept
 {
     string msg;

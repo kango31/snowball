@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <exception>
 
-/*
+/**
  * This Macro enables to throw exceptions and automatacilly provides the
  * __FILE__, __FUNCTION__, __LINE__ arguments
  * 
@@ -48,8 +48,7 @@ namespace snowball
  * Exception object stores file name, function name and line number in which 
  * exception has been thrown.
  */
-
-class BaseException: public std::exception
+class Exception: public std::exception
 {
     public:
     
@@ -58,7 +57,7 @@ class BaseException: public std::exception
      *
      * @param msg exception message
      */
-    BaseException(std::string msg);
+    Exception(std::string msg);
     
     /**
      * Constructor (extended exception)
@@ -68,13 +67,13 @@ class BaseException: public std::exception
      * @param filename file name
      * @param line lineno number
      */
-    BaseException(std::string msg, std::string filename, std::string func, 
-                  int lineno);
+    Exception(std::string msg, std::string filename, std::string func, 
+              int lineno);
     
     /**
      * Destructor
      */
-    virtual ~BaseException();
+    virtual ~Exception();
     
     /**
      * Get exception message.
@@ -112,59 +111,23 @@ class BaseException: public std::exception
      */
     const bool is_extended() const;
     
+    /**
+     * Return an exception message
+     */
+    virtual const char* what() const noexcept;
+    
     private:
     
-    std::string message;
-    std::string function;
-    std::string filename;
-    int lineno;
-};
-
-/**
- * Generic Exception.
- * Any exception thrown by snowball is a instance of Exception class.
- */
-
-class Exception: private BaseException
-{
-    public:
-    
-    /**
-     * Constructor (basic exception)
-     *
-     * @param msg exception message
-     */
-    Exception(std::string msg);
-    
-    /**
-     * Constructor (extended exception)
-     * 
-     * @param msg exception message
-     * @param func function name
-     * @param filename file name
-     * @param lineno line number
-     */
-    Exception(std::string msg, std::string filename, std::string func, 
-              int lineno);
-
-    /**
-     * Destructor
-     */
-    virtual ~Exception();
-    
-    /**
-     * Return information (message plus file name, function name and line number
-     * if available) on exception object.
-     * @return exception message
-    */
-    virtual const char* what() const noexcept;
+    std::string m_message;
+    std::string m_function;
+    std::string m_filename;
+    int m_lineno;
 };
 
 
 /**
  * IndexError exception.
  */
-
 class IndexError: public Exception
 {
     public:
@@ -197,7 +160,6 @@ class IndexError: public Exception
 /**
  * ValueError exception.
  */
-
 class ValueError: public Exception
 {
     public:
