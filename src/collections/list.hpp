@@ -352,6 +352,24 @@ class List
     void insert(long index, const T& item);
     
     /**
+     * Insert another list before specified index.
+     * 
+     * If a negative index is specified, it is applied from the end of the list.
+     * This method never throw an IndexError exception like opreator[] does: 
+     * if index is beyond end of the list, item is inserted in last position and
+     * if index is beyond start of the list it is inserted at begining of the 
+     * list.
+     * 
+     * ~~~~~~~~~~~~~~~~~~~~~{.cpp}
+     * List<int> list = {0, 1, 2};
+     * list.insert(1, List<int>({3, 4, 5})); //list is now {0, 3, 4, 5, 1, 2}
+     * ~~~~~~~~~~~~~~~~~~~~~
+     * @param index index where item is going to be inserted
+     * @param other other list to be inserted into current one
+     */
+    void insert(long index, const List<T, Alloc>& other);
+    
+    /**
      * Check wether a given item is in the list
      * 
      * @param item item to be looked for
@@ -488,6 +506,11 @@ class List
      * Const reverse iterator to the reverse end of the list.
      */
     const_reverse_iterator rend() const;
+    
+    /**
+     * Clear all items from the list.
+     */
+    void clear();
     
     
     private:
@@ -629,6 +652,19 @@ void List<T, Alloc>::insert(long index, const T& item)
     }
     index = std::min(index, long(n));
     m_vector.insert(m_vector.begin() + index, item);
+}
+
+template <typename T, typename Alloc>
+void List<T, Alloc>::insert(long index, const List<T, Alloc>& other)
+{
+    size_type n = size();
+    if (index < 0)
+    {
+        index += n;
+        index = std::max(long(0), index);
+    }
+    index = std::min(index, long(n));
+    m_vector.insert(m_vector.begin() + index, other.begin(), other.end());
 }
 
 //method contains
@@ -805,6 +841,14 @@ template <typename T, typename Alloc>
 typename List<T, Alloc>::const_reverse_iterator List<T, Alloc>::rend() const
 {
     return m_vector.rend();
+}
+
+// clear method
+
+template <typename T, typename Alloc>
+void List<T, Alloc>::clear()
+{
+    m_vector.erase(m_vector.begin(), m_vector.end());
 }
 
 } //end of snowball namespace

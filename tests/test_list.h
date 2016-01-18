@@ -130,7 +130,7 @@ TEST_CASE("list", "[collections]")
         REQUIRE (list[4] == 4);
     }
     
-    SECTION("insert")
+    SECTION("insert an item")
     {
         List<int> list = {0, 1, 2};
         list.insert(10, 3);
@@ -143,6 +143,13 @@ TEST_CASE("list", "[collections]")
         REQUIRE (list == List<int>({6, 4, 0, 5, 1, 2, 3}));
         list.insert(-1, 7);
         REQUIRE (list == List<int>({6, 4, 0, 5, 1, 2, 7, 3}));
+    }
+    
+    SECTION("insert another list")
+    {
+        List<int> list = {0, 1, 2};
+        list.insert(1, List<int>({3, 4, 5}));
+        REQUIRE (list == List<int>({0, 3, 4, 5, 1, 2}));
     }
     
     SECTION("contains")
@@ -283,9 +290,14 @@ TEST_CASE("list", "[collections]")
             long i = list2.size() - 1 - (it2 - list2.rbegin());
             REQUIRE (list2[i] == *it2);
         }
-        std::cout << std::numeric_limits<long>::max() << std::endl;
-        std::cout << std::numeric_limits<long long>::max() << std::endl;
-        std::cout << std::numeric_limits<size_t>::max() << std::endl;
+    }
+    
+    SECTION("clear")
+    {
+        List<int> list1 = {0, 2, 4, 6, 8};
+        REQUIRE (list1.size() == 5);
+        list1.clear();
+        REQUIRE (list1.size() == 0);
     }
 
 } //end of TEST_CASE
