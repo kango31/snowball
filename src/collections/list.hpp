@@ -88,6 +88,31 @@ class List
      */
     typedef typename std::vector<T, Alloc>::allocator_type allocator_type;
     
+    /**
+     * @typedef iterator
+     * a random access iterator to List<T, Alloc>::value_type
+     */
+    typedef typename std::vector<T, Alloc>::iterator iterator;
+    
+    /**
+     * @typedef const_iterator
+     * a random access iterator to const List<T, Alloc>::value_type
+     */
+    typedef typename std::vector<T, Alloc>::const_iterator const_iterator;
+
+    /**
+     * @typedef reverse_iterator
+     * a random access reverse iterator to List<T, Alloc>::value_type
+     */
+    typedef typename std::vector<T, Alloc>::reverse_iterator reverse_iterator;
+    
+    /**
+     * @typedef const_reverse_iterator
+     * a random access reverse iterator to const List<T, Alloc>::value_type
+     */
+    typedef typename std::vector<T, Alloc>::const_reverse_iterator const_reverse_iterator;
+
+    
     public:
         
     /**
@@ -424,6 +449,47 @@ class List
      */
     void sort(bool (*funcptr)(const T&, const T&));
     
+    /**
+     * Iterator to the begin of the list.
+     */
+    iterator begin();
+    
+    /**
+     * Const iterator to the begin of the list.
+     */
+    const_iterator begin() const;
+
+    /**
+     * Iterator to the end of the list.
+     */
+    iterator end();
+    
+    /**
+     * Const iterator to the end of the list.
+     */
+    const_iterator end() const;
+    
+    /**
+     * Reverse iterator to the reverse begining of the list.
+     */
+    reverse_iterator rbegin();
+    
+    /**
+     * Const reverse iterator to the reverse begining of the list.
+     */
+    const_reverse_iterator rbegin() const;
+
+    /**
+     * Reverse iterator to the reverse end of the list.
+     */
+    reverse_iterator rend();
+    
+    /**
+     * Const reverse iterator to the reverse end of the list.
+     */
+    const_reverse_iterator rend() const;
+    
+    
     private:
     
     std::vector<T, Alloc> m_vector;
@@ -687,6 +753,58 @@ template <typename T, typename Alloc>
 void List<T, Alloc>::sort(bool (*funcptr)(const T&, const T&))
 {
     std::sort(m_vector.begin(), m_vector.end(), funcptr);
+}
+
+//forward iterators
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::iterator List<T, Alloc>::begin()
+{
+    return m_vector.begin();
+}
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::const_iterator List<T, Alloc>::begin() const
+{
+    return m_vector.begin();
+}
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::iterator List<T, Alloc>::end()
+{
+    return m_vector.end();
+}
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::const_iterator List<T, Alloc>::end() const
+{
+    return m_vector.end();
+}
+
+//reverse iterators
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::reverse_iterator List<T, Alloc>::rbegin()
+{
+    return m_vector.rbegin();
+}
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::const_reverse_iterator List<T, Alloc>::rbegin() const
+{
+    return m_vector.rbegin();
+}
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::reverse_iterator List<T, Alloc>::rend()
+{
+    return m_vector.rend();
+}
+
+template <typename T, typename Alloc>
+typename List<T, Alloc>::const_reverse_iterator List<T, Alloc>::rend() const
+{
+    return m_vector.rend();
 }
 
 } //end of snowball namespace

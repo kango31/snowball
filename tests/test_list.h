@@ -248,5 +248,41 @@ TEST_CASE("list", "[collections]")
         list.reverse();
         REQUIRE (list == List<int>({7, 6, 0, 5, 1, 4, 2, 3}));
     }
+    
+    SECTION("native forward iterator")
+    {
+        List<int> list1 = {0, 2, 4, 6, 8};
+        List<int>::iterator it1;
+        for (it1 = list1.begin(); it1 != list1.end(); ++it1)
+        {
+            long i = it1 - list1.begin();
+            REQUIRE (list1[i] == *it1);
+        }
+        const List<int> list2 = {1, 3, 5, 7, 9};
+        List<int>::const_iterator it2;
+        for (it2 = list2.begin(); it2 != list2.end(); ++it2)
+        {
+            long i = it2 - list2.begin();
+            REQUIRE (list2[i] == *it2);
+        }
+    }
+    
+    SECTION("native reverse iterator")
+    {
+        List<int> list1 = {0, 2, 4, 6, 8};
+        List<int>::reverse_iterator it1;
+        for (it1 = list1.rbegin(); it1 != list1.rend(); ++it1)
+        {
+            long i = list1.size() - 1 - (it1 - list1.rbegin());
+            REQUIRE (list1[i] == *it1);
+        }
+        const List<int> list2 = {1, 3, 5, 7, 9};
+        List<int>::const_reverse_iterator it2;
+        for (it2 = list2.rbegin(); it2 != list2.rend(); ++it2)
+        {
+            long i = list2.size() - 1 - (it2 - list2.rbegin());
+            REQUIRE (list2[i] == *it2);
+        }
+    }
 
 } //end of TEST_CASE
