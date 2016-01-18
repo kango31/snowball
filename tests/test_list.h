@@ -216,12 +216,12 @@ TEST_CASE("list", "[collections]")
     
     SECTION("remove")
     {
-        List<int> list = {6, 4, 0, 5, 1, 2, 7, 3};
+        List<int> list = {6, 4, 4, 0, 5, 1, 2, 7, 3};
         list.remove(4);
-        REQUIRE (list.size() == 7);
-        REQUIRE (list[1] == 0);
+        REQUIRE (list.size() == 8);
+        REQUIRE (list[2] == 0);
         list.remove(3);
-        REQUIRE (list.size() == 6);
+        REQUIRE (list.size() == 7);
         REQUIRE (list[-1] == 7);
         REQUIRE_THROWS_AS (list.remove(3), ValueError);
     }
@@ -283,6 +283,9 @@ TEST_CASE("list", "[collections]")
             long i = list2.size() - 1 - (it2 - list2.rbegin());
             REQUIRE (list2[i] == *it2);
         }
+        std::cout << std::numeric_limits<long>::max() << std::endl;
+        std::cout << std::numeric_limits<long long>::max() << std::endl;
+        std::cout << std::numeric_limits<size_t>::max() << std::endl;
     }
 
 } //end of TEST_CASE
