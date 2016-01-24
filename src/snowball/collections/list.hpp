@@ -113,6 +113,11 @@ class List
      */
     typedef typename std::vector<T, Alloc>::const_reverse_iterator const_reverse_iterator;
 
+    /**
+     * @typedef index_type
+     * the index type for list is size_type
+     */
+    typedef size_type index_type;
     
     public:
         
