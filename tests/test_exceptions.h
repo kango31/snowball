@@ -1,7 +1,7 @@
 #include <sstream>
 #include "catch.hpp"
 
-#include "exceptions/exceptions.h"
+#include "snowball/exceptions/exceptions.h"
 
 using namespace snowball;
 

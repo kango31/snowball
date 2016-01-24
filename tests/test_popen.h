@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#include "subprocess/popen.h"
+#include "snowball/subprocess/popen.h"
 
 using namespace snowball;
 

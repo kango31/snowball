@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <vector>
 
-#include "exceptions/exceptions.h"
-#include "collections/iterator.h"
+#include "snowball/exceptions/exceptions.h"
+#include "iterator.h"
 
 
 namespace snowball

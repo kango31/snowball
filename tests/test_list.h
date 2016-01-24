@@ -5,8 +5,8 @@
 #include <iostream>
 #include <functional>
 
-#include "collections/list.hpp"
-#include "exceptions/exceptions.h"
+#include "snowball/collections/list.hpp"
+#include "snowball/exceptions/exceptions.h"
 
 using namespace snowball;
 

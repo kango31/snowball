@@ -2,7 +2,7 @@
 #include <string>
 #include "catch.hpp"
 
-#include "version.h"
+#include "snowball/version.h"
 
 using namespace snowball;
 
