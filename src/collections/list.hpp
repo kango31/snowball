@@ -26,15 +26,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 
 #include "exceptions/exceptions.h"
+#include "collections/iterator.h"
 
 
 namespace snowball
 {
     
 //==============================================================================
-// DECLARATION
+// LIST DECLARATION
 //==============================================================================
-
+    
 /**
  * @brief Implements a list on top of std::vector.
  * 
@@ -441,7 +442,7 @@ class List
      * 
      * @param item item to count
      */
-    long count(const T& item) const;
+    size_type count(const T& item) const;
     
     /**
      * Reverse list.
@@ -467,6 +468,17 @@ class List
      */
     void sort(bool (*funcptr)(const T&, const T&));
     
+    /**
+     * Sort list.
+     * 
+     * This method uses a functor object provided as argument.
+     * The functor object must have an operator() method.
+     * 
+     * @param functor sorting functor of type Compare
+     */
+    template <typename Compare>
+    void sort(const Compare& functor);
+        
     /**
      * Iterator to the begin of the list.
      */
@@ -520,7 +532,7 @@ class List
 }; // end of List class
 
 //==============================================================================
-// DEFINITION
+// LIST DEFINITION
 //==============================================================================
 
 //Constructor
@@ -554,18 +566,21 @@ template <typename T, typename Alloc>
 List<T, Alloc>& List<T, Alloc>::operator=(const List<T, Alloc>& other)
 {
     m_vector = other.m_vector;
+    return *this;
 }
 
 template <typename T, typename Alloc>
 List<T, Alloc>& List<T, Alloc>::operator=(const std::vector<T, Alloc>& vect)
 {
     m_vector = vect;
+    return *this;
 }
 
 template <typename T, typename Alloc>
 List<T, Alloc>& List<T, Alloc>::operator=(std::initializer_list<T> il)
 {
     m_vector = il;
+    return *this;
 }
 
 //Destructor
@@ -764,7 +779,7 @@ void List<T, Alloc>::remove(const T& item) throw(ValueError)
 //count method
 
 template <typename T, typename Alloc>
-long List<T, Alloc>::count(const T& item) const
+typename List<T, Alloc>::size_type List<T, Alloc>::count(const T& item) const
 {
     return std::count(m_vector.begin(), m_vector.end(), item);
 }
@@ -789,6 +804,13 @@ template <typename T, typename Alloc>
 void List<T, Alloc>::sort(bool (*funcptr)(const T&, const T&))
 {
     std::sort(m_vector.begin(), m_vector.end(), funcptr);
+}
+
+template <typename T, typename Alloc>
+template <typename Compare>
+void List<T, Alloc>::sort(const Compare& functor)
+{
+    std::sort(m_vector.begin(), m_vector.end(), functor);
 }
 
 //forward iterators
@@ -850,6 +872,290 @@ void List<T, Alloc>::clear()
 {
     m_vector.erase(m_vector.begin(), m_vector.end());
 }
+
+//==============================================================================
+// LISTITERATOR DECLARATION
+//==============================================================================
+
+/**
+ * @brief Implements an iterator object for List
+ * 
+ * @tparam Container List type
+ * 
+ * This is an implementation of the Iterator design pattern
+ */
+template <typename Container>
+class ListIterator: public Iterator<typename Container::value_type>
+{
+        
+    public:
+    
+    /**
+     * Constructor.
+     * 
+     * Build a list iterator from an existing list.
+     * 
+     * @param list list to be iterated over
+     */
+    ListIterator(Container& list): m_list(&list) { first(); };
+    
+    /**
+     * Copy constructor.
+     * 
+     * Build a list iterator from an existing iterator.
+     * 
+     * @param other iterator to be copied
+     */    
+    ListIterator(const ListIterator& other): m_list(other.m_list), m_cursor(other.m_cursor) { };
+    
+    /**
+     * Destructor.
+     */
+    virtual ~ListIterator() { };
+    
+    /**
+     * Assignment operator.
+     * 
+     * @param other iterator to be assigned from.
+     */
+    ListIterator& operator=(const ListIterator& other) { m_cursor = other.m_current; m_list = other.m_list; return *this; };
+
+    /**
+     * Move iterator to the first item.
+     */
+    virtual void first() { m_cursor = m_list->begin(); };
+    
+    /**
+     * Move iterator to the next item.
+     */
+    void next() { ++m_cursor; }
+    
+    /**
+     * Stat whether iteration is over.
+     */
+    virtual bool isDone() { return m_cursor >= m_list->end(); };
+    
+    /**
+     * Return current item.
+     */
+    virtual typename Container::value_type& currentItem() { return *m_cursor; };
+    
+    private:
+        
+    Container* m_list;
+    typename Container::iterator m_cursor;
+
+};
+
+/**
+ * @brief Implements an iterator object for List
+ * 
+ * @tparam Container List type
+ * 
+ * This is an implementation of the Iterator design pattern
+ */
+template <typename Container>
+class ListIterator<const Container>: public Iterator<const typename Container::value_type>
+{
+        
+    public:
+    
+    /**
+     * Constructor.
+     * 
+     * Build a list iterator from an existing list.
+     * 
+     * @param list list to be iterated over
+     */
+    ListIterator(const Container& list): m_list(&list) { first(); };
+    
+    /**
+     * Copy constructor.
+     * 
+     * Build a list iterator from an existing iterator.
+     * 
+     * @param other iterator to be copied
+     */    
+    ListIterator(const ListIterator& other): m_list(other.m_list), m_cursor(other.m_cursor) { };
+    
+    /**
+     * Destructor.
+     */
+    virtual ~ListIterator() { };
+    
+    /**
+     * Assignment operator.
+     * 
+     * @param other iterator to be assigned from.
+     */
+    ListIterator& operator=(const ListIterator& other) { m_cursor = other.m_current; m_list = other.m_list; return *this; };
+
+    /**
+     * Move iterator to the first item.
+     */
+    virtual void first() { m_cursor = m_list->begin(); };
+    
+    /**
+     * Move iterator to the next item.
+     */
+    void next() { ++m_cursor; }
+    
+    /**
+     * Stat whether iteration is over.
+     */
+    virtual bool isDone() { return m_cursor >= m_list->end(); };
+    
+    /**
+     * Return current item.
+     */
+    virtual const typename Container::value_type& currentItem() { return *m_cursor; };
+    
+    private:
+        
+    const Container* m_list;
+    typename Container::const_iterator m_cursor;
+
+};
+
+/**
+ * @brief Implements a reverse iterator object for List
+ * 
+ * @tparam Container List type
+ * 
+ * This is an implementation of the Iterator design pattern
+ */
+template <typename Container>
+class ReverseListIterator: public Iterator<typename Container::value_type>
+{
+        
+    public:
+    
+    /**
+     * Constructor.
+     * 
+     * Build a list iterator from an existing list.
+     * 
+     * @param list list to be iterated over
+     */
+    ReverseListIterator(Container& list): m_list(&list) { first(); };
+    
+    /**
+     * Copy constructor.
+     * 
+     * Build a list iterator from an existing iterator.
+     * 
+     * @param other iterator to be copied
+     */    
+    ReverseListIterator(const ReverseListIterator& other): m_list(other.m_list), m_cursor(other.m_cursor) { };
+    
+    /**
+     * Destructor.
+     */
+    virtual ~ReverseListIterator() { };
+    
+    /**
+     * Assignment operator.
+     * 
+     * @param other iterator to be assigned from.
+     */
+    ReverseListIterator& operator=(const ReverseListIterator& other) { m_cursor = other.m_current; m_list = other.m_list; return *this; };
+
+    /**
+     * Move iterator to the first item.
+     */
+    virtual void first() { m_cursor = m_list->rbegin(); };
+    
+    /**
+     * Move iterator to the next item.
+     */
+    void next() { ++m_cursor; }
+    
+    /**
+     * Stat whether iteration is over.
+     */
+    virtual bool isDone() { return m_cursor >= m_list->rend(); };
+    
+    /**
+     * Return current item.
+     */
+    virtual typename Container::value_type& currentItem() { return *m_cursor; };
+    
+    private:
+        
+    Container* m_list;
+    typename Container::reverse_iterator m_cursor;
+
+};
+
+/**
+ * @brief Implements a reverse iterator object for List
+ * 
+ * @tparam Container List type
+ * 
+ * This is an implementation of the Iterator design pattern
+ */
+template <typename Container>
+class ReverseListIterator<const Container>: public Iterator<const typename Container::value_type>
+{
+        
+    public:
+    
+    /**
+     * Constructor.
+     * 
+     * Build a list iterator from an existing list.
+     * 
+     * @param list list to be iterated over
+     */
+    ReverseListIterator(const Container& list): m_list(&list) { first(); };
+    
+    /**
+     * Copy constructor.
+     * 
+     * Build a list iterator from an existing iterator.
+     * 
+     * @param other iterator to be copied
+     */    
+    ReverseListIterator(const ReverseListIterator& other): m_list(other.m_list), m_cursor(other.m_cursor) { };
+    
+    /**
+     * Destructor.
+     */
+    virtual ~ReverseListIterator() { };
+    
+    /**
+     * Assignment operator.
+     * 
+     * @param other iterator to be assigned from.
+     */
+    ReverseListIterator& operator=(const ReverseListIterator& other) { m_cursor = other.m_current; m_list = other.m_list; return *this; };
+
+    /**
+     * Move iterator to the first item.
+     */
+    virtual void first() { m_cursor = m_list->rbegin(); };
+    
+    /**
+     * Move iterator to the next item.
+     */
+    void next() { ++m_cursor; }
+    
+    /**
+     * Stat whether iteration is over.
+     */
+    virtual bool isDone() { return m_cursor >= m_list->rend(); };
+    
+    /**
+     * Return current item.
+     */
+    virtual const typename Container::value_type& currentItem() { return *m_cursor; };
+    
+    private:
+        
+    const Container* m_list;
+    typename Container::const_reverse_iterator m_cursor;
+
+};
 
 } //end of snowball namespace
 

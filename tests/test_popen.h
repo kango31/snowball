@@ -24,7 +24,7 @@ public:
     
     ~GenerateFile1()
     {
-        int err = remove(m_filename.c_str());
+        remove(m_filename.c_str());
     };
 };
 
@@ -46,7 +46,7 @@ public:
     
     ~GenerateFile2()
     {
-        int err = remove(m_filename.c_str());
+        remove(m_filename.c_str());
     };
 };
 
@@ -71,7 +71,7 @@ public:
     
     ~GenerateFile3()
     {
-        int err = remove(m_filename.c_str());
+        remove(m_filename.c_str());
     };
 };
 
@@ -100,7 +100,7 @@ public:
     
     ~GenerateFile4()
     {
-        int err = remove(m_filename.c_str());
+        remove(m_filename.c_str());
     };
 };
 
@@ -357,7 +357,7 @@ TEST_CASE("Popen class", "[popen]")
         std::vector<std::string> filenames;        
         filenames.push_back("stdout.log");
         filenames.push_back("stderr.log");
-        for (int i = 0; i < filenames.size(); ++i)
+        for (unsigned int i = 0; i < filenames.size(); ++i)
         {
             std::ifstream stream(filenames[i]);
             std::string line;

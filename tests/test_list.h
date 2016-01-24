@@ -3,6 +3,7 @@
 #include <limits>
 #include <cstddef>
 #include <iostream>
+#include <functional>
 
 #include "collections/list.hpp"
 #include "exceptions/exceptions.h"
@@ -23,6 +24,16 @@ class Dummy
     
     public:
     Dummy(int value): m_value(value) { };
+    bool operator<(const Dummy& other) const { return m_value < other.m_value; };
+    int value() const { return m_value; };
+};
+
+class Comp
+{
+    public:
+    Comp() { };
+    bool compare(const int& i, const int& j) const { return i < j; };
+    bool operator()(const int& i, const int& j) const { return i < j; };
 };
 
 bool sortInt(const int& i, const int& j)
@@ -247,6 +258,60 @@ TEST_CASE("list", "[collections]")
         REQUIRE (list == List<int>({3, 2, 4, 1, 5, 0, 6, 7}));
     }
     
+    SECTION("sort with member method")
+    {
+        std::vector<int> vect = {6, 4, 0, 5, 1, 2, 7, 3};
+        List<Dummy> list;
+        std::vector<int>::iterator it;
+        for (it = vect.begin(); it != vect.end(); ++it)
+        {
+            list.append(Dummy(*it));
+        }
+        REQUIRE (list.size() == 8);
+        list.sort();
+        List<int> output;
+        List<Dummy>::iterator lit;
+        for (lit = list.begin(); lit != list.end(); ++lit)
+        {
+            output.append((*lit).value());
+        }        
+        REQUIRE (output == List<int>({0, 1, 2, 3, 4, 5, 6, 7}));
+    }
+    
+    SECTION("sort with functor")
+    {
+        List<int> list = {6, 4, 0, 5, 1, 2, 7, 3};
+        Comp cmp;
+        list.sort(cmp);
+        REQUIRE (list == List<int>({0, 1, 2, 3, 4, 5, 6, 7}));
+    }
+    
+    SECTION("sort with std::function around function")
+    {
+        List<int> list = {6, 4, 0, 5, 1, 2, 7, 3};
+        std::function<bool(const int&, const int&)> func = sortInt;
+        list.sort(func);
+        REQUIRE (list == List<int>({3, 2, 4, 1, 5, 0, 6, 7}));
+    }
+    
+    SECTION("sort with std::function around a functor")
+    {
+        List<int> list = {6, 4, 0, 5, 1, 2, 7, 3};
+        Comp cmp;
+        std::function<bool(const int&, const int&)> func = cmp;
+        list.sort(func);
+        REQUIRE (list == List<int>({0, 1, 2, 3, 4, 5, 6, 7}));
+    }
+    
+    SECTION("sort with std::function around a class method")
+    {
+        List<int> list = {6, 4, 0, 5, 1, 2, 7, 3};
+        Comp cmp;
+        std::function<bool(const int&, const int&)> func = std::bind(&Comp::compare, cmp, std::placeholders::_1, std::placeholders::_2);
+        list.sort(func);
+        REQUIRE (list == List<int>({0, 1, 2, 3, 4, 5, 6, 7}));
+    }
+    
     SECTION("reverse")
     {
         List<int> list = {6, 4, 0, 5, 1, 2, 7, 3};
@@ -299,5 +364,129 @@ TEST_CASE("list", "[collections]")
         list1.clear();
         REQUIRE (list1.size() == 0);
     }
+    
+    SECTION("list of pointers")
+    {
+        List<int*> list;
+        int a = 0;
+        int b = 1;
+        int c = 2;
+        int d = 3;
+        list.append(&a);
+        list.append(&b);
+        list.append(&c);
+        list.append(&d);
+        REQUIRE (*list[2] == 2);
+        REQUIRE (*list[0] == 0);
+        
+    }
 
 } //end of TEST_CASE
+
+TEST_CASE("list iterator", "[collections]")
+{
+    SECTION("Constructor")
+    {
+        List<int> list1 = {0, 2, 4, 6, 8};
+        const List<int> list2 = {1, 3, 5, 9};
+        ListIterator< List<int> > it1(list1);
+        ListIterator< const List<int> > it2(list2);
+        REQUIRE (it1.currentItem() == 0);
+        REQUIRE (it2.currentItem() == 1);
+        ReverseListIterator< List<int> > rit1(list1);
+        ReverseListIterator< const List<int> > rit2(list2);
+        REQUIRE (rit1.currentItem() == 8);
+        REQUIRE (rit2.currentItem() == 9);
+    }
+    
+    SECTION("Iteration")
+    {
+        List<int> list1 = {0, 2, 4, 6, 8};
+        const List<int> list2 = {1, 3, 5, 7, 9};
+        ListIterator< List<int> > it1(list1);
+        ListIterator< const List<int> > it2(list2);
+        ReverseListIterator< List<int> > rit1(list1);
+        ReverseListIterator< const List<int> > rit2(list2);
+        List<int> output;
+        for (it1.first(); !it1.isDone(); it1.next())
+        {
+            output.append(it1.currentItem());
+        }
+        REQUIRE (output == List<int>({0, 2, 4, 6, 8}));
+        output.clear();
+        for (it2.first(); !it2.isDone(); it2.next())
+        {
+            output.append(it2.currentItem());
+        }
+        REQUIRE (output == List<int>({1, 3, 5, 7, 9}));
+        output.clear();
+        for (rit1.first(); !rit1.isDone(); rit1.next())
+        {
+            output.append(rit1.currentItem());
+        }
+        REQUIRE (output == List<int>({8, 6, 4, 2, 0}));
+        output.clear();
+        for (rit2.first(); !rit2.isDone(); rit2.next())
+        {
+            output.append(rit2.currentItem());
+        }
+        REQUIRE (output == List<int>({9, 7, 5, 3, 1}));
+    }
+    
+    SECTION("Inplace modification of list")
+    {
+        List<int> list = {0, 2, 4, 6, 8};
+        ListIterator< List<int> > it(list);
+        ReverseListIterator< List<int> > rit(list);
+        for (it.first(); !it.isDone(); it.next())
+        {
+            it.currentItem() *= 2;
+        }
+        REQUIRE (list == List<int>({0, 4, 8, 12, 16}));
+        for (rit.first(); !rit.isDone(); rit.next())
+        {
+            rit.currentItem() *= 2;
+        }
+        REQUIRE (list == List<int>({0, 8, 16, 24, 32}));        
+    }
+    
+    SECTION("Polymorphism check")
+    {
+        List<int> list1 = {0, 2, 4, 6, 8};
+        const List<int> list2 = {1, 3, 5, 7, 9};
+        ListIterator< List<int> > it1(list1);
+        ListIterator< const List<int> > it2(list2);
+        ReverseListIterator< List<int> > rit1(list1);
+        ReverseListIterator< const List<int> > rit2(list2);
+        List<int> output;
+        Iterator<int>* pit1 = &it1;
+        Iterator<const int>* pit2 = &it2;        
+        for (pit1->first(); !pit1->isDone(); pit1->next())
+        {
+            pit1->currentItem() *= 2;
+            output.append(it1.currentItem());
+        }
+        REQUIRE (output == List<int>({0, 4, 8, 12, 16}));
+        output.clear();
+        for (pit2->first(); !pit2->isDone(); pit2->next())
+        {
+            output.append(pit2->currentItem());
+        }
+        REQUIRE (output == List<int>({1, 3, 5, 7, 9}));
+        output.clear();
+        pit1 = &rit1;
+        pit2 = &rit2;
+        for (pit1->first(); !pit1->isDone(); pit1->next())
+        {
+            pit1->currentItem() *= 2;
+            output.append(pit1->currentItem());
+        }
+        REQUIRE (output == List<int>({32, 24, 16, 8, 0}));
+        output.clear();
+        for (pit2->first(); !pit2->isDone(); pit2->next())
+        {
+            output.append(pit2->currentItem());
+        }
+        REQUIRE (output == List<int>({9, 7, 5, 3, 1}));
+    }
+}

@@ -9,7 +9,11 @@ set(LIBRARY_OUTPUT_PATH lib)
 #===============================================================================
 
 #Use C++11
-set( CMAKE_CXX_FLAGS  "-std=c++11" )
+set(CMAKE_CXX_FLAGS  "-std=c++11" )
+#Set debug flags
+#These debug flags are used when invoking CMake this way:
+#cmake -DCMAKE_BUILD_TYPE=Debug
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 #===============================================================================
 # snowball lib
@@ -63,10 +67,10 @@ target_link_libraries(snowball_test snowball)
 add_custom_target(
     test
     #run verbose
-    #bin/snowball_test -s -d yes
+    bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    bin/snowball_test -s [collections]
+    #bin/snowball_test -s [collections]
     DEPENDS bin/snowball_test
     )
     

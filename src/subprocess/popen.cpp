@@ -13,20 +13,20 @@ using namespace snowball;
  */
 
 Redirection::Redirection(Target target)
-    : m_switch(0), m_tgt(target) { }
+    : m_tgt(target), m_switch(0) { }
 
 Redirection::Redirection(std::ofstream& target)
-    : m_switch(1), m_os(&target) { }
+    : m_os(&target), m_switch(1) { }
 
 Redirection::Redirection(std::ifstream& target)
-    : m_switch(2), m_is(&target) { }
+    : m_is(&target), m_switch(2) { }
     
 Redirection::Redirection(int fildes)
-    : m_switch(0), m_tgt(Redirection::Target::Pipe), m_fd(fildes) { }
+    : m_tgt(Redirection::Target::Pipe), m_switch(0), m_fd(fildes) { }
 
 Redirection::Redirection(const Redirection& other)
-    : m_switch(other.m_switch), m_tgt(other.m_tgt), m_os(other.m_os), 
-    m_is(other.m_is), m_fd(other.m_fd) { }
+    : m_tgt(other.m_tgt), m_os(other.m_os), m_is(other.m_is), 
+    m_switch(other.m_switch), m_fd(other.m_fd) { }
 
 /*
  * Destructor
@@ -300,7 +300,7 @@ void Popen::executeChild(const std::vector<std::string> args)
         log << std::endl;
         log.close();*/
         err = execvp(argv[0], argv);
-        for(int j = 0; j < args.size(); ++j)
+        for(unsigned int j = 0; j < args.size(); ++j)
         {
             delete_c_str(argv[j]);
         }
@@ -326,7 +326,7 @@ int Popen::wait()
     int status = 0;
     if (m_returncode < 0)
     {
-        pid_t err = waitpid(m_pid, &status, 0);
+        waitpid(m_pid, &status, 0);
         if (WIFEXITED(status))
             m_returncode = WEXITSTATUS(status);
     }
@@ -609,8 +609,7 @@ ssize_t readFromPipe(int fildes, std::string& msg, const int buffer_size=1024)
 void test1()
 {
     int fildes[2] = {0, 0};
-    int err;
-    err = pipe(fildes);
+    pipe(fildes);
     std::cout << "pipe read = " << fildes[0] << " write = " << fildes[1]
         << std::endl;
     pid_t pid = fork();
@@ -636,8 +635,7 @@ void test1()
 void test2()
 {
     int fildes[2] = {0, 0};
-    int err;
-    err = pipe(fildes);
+    pipe(fildes);
     std::cout << "pipe read = " << fildes[0] << " write = " << fildes[1]
         << std::endl;
     pid_t pid = fork();
@@ -663,8 +661,7 @@ void test2()
 void test3()
 {
     int fildes[2] = {0, 0};
-    int err;
-    err = pipe(fildes);
+    pipe(fildes);
     std::cout << "pipe read = " << fildes[0] << " write = " << fildes[1] 
         << std::endl;
     pid_t pid = fork();
@@ -733,9 +730,8 @@ void test4()
 {
     int fildes_in[2] = {0, 0};
     int fildes_out[2] = {0, 0};
-    int err;
-    err = pipe(fildes_in);
-    err = pipe(fildes_out);
+    pipe(fildes_in);
+    pipe(fildes_out);
     std::cout << "pipe in read = " << fildes_in[0] << " write = "
         << fildes_in[1] << std::endl;
     std::cout << "pipe out read = " << fildes_out[0] << " write = "
@@ -808,8 +804,7 @@ void test4()
                 if (FD_ISSET(fildes_in[1], &wfds))
                 {
                     //stdin is available
-                    ssize_t written = writeToPipe(fildes_in[1], 
-                                                  "toto\n4012");
+                    writeToPipe(fildes_in[1], "toto\n4012");
                     monitor_stdin = false;
                 }
                 if (FD_ISSET(fildes_out[0], &rfds))
