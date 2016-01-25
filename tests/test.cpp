@@ -5,4 +5,6 @@
 #include "test_exceptions.h"
 #include "test_popen.h"
 #include "test_list.h"
+#include "test_string.h"
 #include "test_algorithms.h"
+
