@@ -74,7 +74,7 @@ TEST_CASE("filter", "[algorithms]")
     {
         List<int> list = {0, 2, 5, 3, 2, 5, 9, 2, 1, 6};
         List<int> output;
-        filter(list, isEven, output);
+        filter(isEven, list, output);
         REQUIRE (output == List<int>({0, 2, 2, 2, 6}));
     }
 
@@ -82,7 +82,7 @@ TEST_CASE("filter", "[algorithms]")
     {
         List<int> list = {0, 2, 5, 3, 2, 5, 9, 2, 1, 6};
         List<int> output;
-        filter(list, std::function<bool(const int&)>(isOdd), output);
+        filter(std::function<bool(const int&)>(isOdd), list, output);
         REQUIRE (output == List<int>({5, 3, 5, 9, 1}));
     }
     
@@ -91,10 +91,10 @@ TEST_CASE("filter", "[algorithms]")
         List<int> list = {0, 2, 5, 3, 2, 5, 9, 2, 1, 6};
         List<int> output;
         Dummy dummy;
-        filter(list, dummy, output);
+        filter(dummy, list, output);
         REQUIRE (output == List<int>({5, 3, 5, 9, 1}));
         output.clear();
-        filter(list, std::function<bool(const int&)>(dummy), output);
+        filter(std::function<bool(const int&)>(dummy), list, output);
         REQUIRE (output == List<int>({5, 3, 5, 9, 1}));
     }
 
@@ -106,7 +106,7 @@ TEST_CASE("map", "[algorithms]")
     {
         List<int> list = {0, 2, 5, 3, 2, 5, 9, 2, 1, 6};
         List<int> output;
-        map(list, dble, output);
+        map(dble, list, output);
         REQUIRE (output == List<int>({0, 4, 10, 6, 4, 10, 18, 4, 2, 12}));
     }
     
@@ -114,7 +114,7 @@ TEST_CASE("map", "[algorithms]")
     {
         List<int> list = {0, 2, 5, 3, 2, 5, 9, 2, 1, 6};
         List<int> output;
-        map(list, std::function<int(const int&)>(dble), output);
+        map(std::function<int(const int&)>(dble), list, output);
         REQUIRE (output == List<int>({0, 4, 10, 6, 4, 10, 18, 4, 2, 12}));
     }
 }

@@ -128,13 +128,13 @@ template <typename T, typename Alloc> class List;
  * ~~~~~
  * 
  * @tparam Container container type
- * @param cont container to be filtered
  * @param funcptr a function pointer predicate
+ * @param cont container to be filtered
  * @param output output list with filtered items
  */
 template <typename Container>
-void filter(const Container& cont, 
-            bool (*funcptr)(const typename Container::value_type& item),
+void filter(bool (*funcptr)(const typename Container::value_type& item),
+            const Container& cont, 
             List<typename Container::value_type>& output)
 {
     typename Container::const_iterator it;
@@ -158,13 +158,13 @@ void filter(const Container& cont,
  * ~~~~~
  * 
  * @tparam Container container type
+ * @param pred a predicate functor
  * @param cont container to be filtered
- * @param funcptr a function pointer predicate
  * @param output output list with filtered items
  */
 template <typename Container, typename Predicate>
-void filter(const Container& cont, 
-            const Predicate& pred,
+void filter(const Predicate& pred,
+            const Container& cont, 
             List<typename Container::value_type>& output)
 {
     typename Container::const_iterator it;
@@ -188,13 +188,13 @@ void filter(const Container& cont,
  * @tparam Container container type
  * @tparam Function functor type
  * @tparam Result type of output result of function
- * @param cont container to be filtered
  * @param func functor to be applied
+ * @param cont container to be filtered
  * @param output output list with processed items
  */
 template <typename Container, typename Function, typename Result>
-void map(const Container& cont, 
-         const Function& func, 
+void map(const Function& func, 
+         const Container& cont, 
          List<Result>& output)
 {
     typename Container::const_iterator it;
@@ -217,13 +217,13 @@ void map(const Container& cont,
  * @tparam Container container type
  * @tparam Function functor type
  * @tparam Result type of output result of function
+ * @param funcptr function pointer
  * @param cont container to be filtered
- * @param func functor to be applied
  * @param output output list with processed items
  */
 template <typename Container, typename Result>
-void map(const Container& cont, 
-         bool (*funcptr)(const typename Container::value_type&),
+void map(bool (*funcptr)(const typename Container::value_type&),
+         const Container& cont, 
          List<Result>& output)
 {
     typename Container::const_iterator it;
