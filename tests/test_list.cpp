@@ -16,26 +16,6 @@ const int valueAt(const List<int>& list, int index)
     return list[index];
 }
 
-
-class Dummy
-{
-    private:
-    int m_value;
-    
-    public:
-    Dummy(int value): m_value(value) { };
-    bool operator<(const Dummy& other) const { return m_value < other.m_value; };
-    int value() const { return m_value; };
-};
-
-class Comp
-{
-    public:
-    Comp() { };
-    bool compare(const int& i, const int& j) const { return i < j; };
-    bool operator()(const int& i, const int& j) const { return i < j; };
-};
-
 bool sortInt(const int& i, const int& j)
 {
     if ((3 - i) * (3 - i) == (3 - j) * (3 - j))
@@ -46,7 +26,27 @@ bool sortInt(const int& i, const int& j)
 
 
 TEST_CASE("list", "[collections]")
-{        
+{ 
+
+    class Dummy
+    {
+        private:
+        int m_value;
+        
+        public:
+        Dummy(int value): m_value(value) { };
+        bool operator<(const Dummy& other) const { return m_value < other.m_value; };
+        int value() const { return m_value; };
+    };
+
+    class Comp
+    {
+        public:
+        Comp() { };
+        bool compare(const int& i, const int& j) const { return i < j; };
+        bool operator()(const int& i, const int& j) const { return i < j; };
+    };
+
     SECTION("empty list constructor")
     {
         List<int> list;

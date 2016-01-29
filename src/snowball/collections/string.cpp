@@ -18,25 +18,84 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "string.h"
 
+#include <iostream>
+
 
 using namespace std;
 
 namespace snowball
 {
+    
 /*
  * Constructors
  */
 
-String::String(): m_str("") {}
-// 
-// KString::KString(const string& _str): str(_str) {}
-// 
-// /*
-//  * Destructor
-//  */
-// 
-// KString::~KString() {}
-// 
+String::String(): m_str("") { }
+
+String::String(const string& str): m_str(str) { }
+
+String::String(const char* cstr): m_str(cstr) { }
+
+String::String(typename String::size_type n, char c): m_str(n, c) { }
+
+String::String(const String& other): m_str(other.m_str) { }
+
+/*
+ * Assignment operator
+ */
+
+String& String::operator=(const String& other)
+{
+    m_str = other.m_str;
+    return *this;
+}
+
+String& String::operator=(const std::string& str)
+{
+    m_str = str;
+    return *this;
+}
+
+String& String::operator=(const char* cstr)
+{
+    m_str = cstr;
+    return *this;
+}
+
+/*
+ * Destructor
+ */
+
+String::~String() { }
+
+/*
+ * Method: size
+ */
+
+typename String::size_type String::size() const
+{
+    return m_str.size();
+}
+
+/*
+ * operator==
+ */
+
+bool String::operator==(const String& other) const
+{
+    return m_str == other.m_str;
+}
+
+bool String::operator==(const std::string& str) const
+{
+    return m_str == str;
+}
+
+bool String::operator==(const char* cstr) const
+{
+    return m_str == cstr;
+}
+
 // /*
 //  * Operator <<
 //  */
@@ -125,19 +184,6 @@ String::String(): m_str("") {}
 // {
 //     int len = text.size();
 //     return str.substr(0, len).compare(text) == 0;
-// }
-// 
-// /*
-//  * operator==
-//  */
-// bool KString::operator==(const string& other) const
-// {
-//     return str == other;
-// }
-// 
-// bool KString::operator==(const KString& other) const
-// {
-//     return str == other.str;
 // }
 // 
 // /*

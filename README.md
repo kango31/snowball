@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kango31/snowball.svg?branch=master)](https://travis-ci.org/kango31/snowball)
+
 Snowball library
 Copyright (C) 2016 Cédric Campguilhem
 

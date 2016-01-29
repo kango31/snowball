@@ -38,7 +38,13 @@ file(
 add_library(
     snowball STATIC
     ${snowball_src}
-    )    
+    )
+    
+target_include_directories(
+    snowball
+    PUBLIC
+    src/
+)
 
 #===============================================================================
 # Unit tests
@@ -70,7 +76,7 @@ add_custom_target(
     bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    #bin/snowball_test -s [algorithms]
+    #bin/snowball_test -s string
     DEPENDS bin/snowball_test
     )
     
