@@ -71,4 +71,39 @@ TEST_CASE("string", "[collections]")
         char cstr[] = "Hello World!";
         REQUIRE (test1 == cstr);
     }
+    
+    SECTION("contains")
+    {
+        String test1("Hello World!");
+        String test2("Hell");
+        String test3("Hi");
+        std::string str1("World");
+        std::string str2("Earth");
+        REQUIRE (test1.contains(test2));
+        REQUIRE (!test1.contains(test3));
+        REQUIRE (test1.contains(str1));
+        REQUIRE (!test1.contains(str2));
+        REQUIRE (test1.contains("ll"));
+        REQUIRE (test1.contains("!"));
+        REQUIRE (!test1.contains("?"));
+        REQUIRE (test1.contains('!'));
+        REQUIRE (!test1.contains('?'));
+    }
+    
+    SECTION("startswith")
+    {
+        String test1("Hello World!");
+        String test2("Hell");
+        String test3("Hi");
+        std::string str1("World");
+        std::string str2("Earth");
+        REQUIRE (test1.startswith(test2));
+        REQUIRE (!test1.startswith(test3));
+        REQUIRE (!test1.startswith(str1));
+        REQUIRE (!test1.startswith(str2));
+        REQUIRE (test1.startswith("Hello "));
+        REQUIRE (!test1.startswith(" Hello"));
+        REQUIRE (test1.startswith('H'));
+        REQUIRE (!test1.startswith('?'));
+    }
 }

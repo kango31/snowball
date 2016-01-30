@@ -96,6 +96,54 @@ bool String::operator==(const char* cstr) const
     return m_str == cstr;
 }
 
+/*
+ * Method contains
+ */
+
+bool String::contains(const char* sub) const
+{
+    return (m_str.find(sub) != string::npos);
+}
+
+bool String::contains(const std::string& sub) const
+{
+    return (m_str.find(sub) != string::npos);
+}
+
+bool String::contains(const String& sub) const
+{
+    return (m_str.find(sub.m_str) != string::npos);
+}
+
+bool String::contains(const char sub) const
+{
+    return (m_str.find(sub) != string::npos);
+}
+
+/*
+ * Method startswith
+ */
+
+bool String::startswith(const std::string& str) const
+{
+    return m_str.compare(0, str.size(), str) == 0;
+}
+
+bool String::startswith(const String& str) const
+{
+    return m_str.compare(0, str.size(), str.m_str) == 0;
+}
+
+bool String::startswith(const char* cstr) const
+{    
+    return m_str.compare(0, std::char_traits<char>::length(cstr), cstr) == 0;
+}
+
+bool String::startswith(const char c) const
+{
+    return m_str.compare(0, 1, std::string(&c)) == 0;
+}
+
 // /*
 //  * Operator <<
 //  */
@@ -178,15 +226,6 @@ bool String::operator==(const char* cstr) const
 // }
 // 
 // /*
-//  * Method startswith
-//  */
-// bool KString::startswith(const string& text) const
-// {
-//     int len = text.size();
-//     return str.substr(0, len).compare(text) == 0;
-// }
-// 
-// /*
 //  * operator string()
 //  */
 // KString::operator string() const
@@ -194,24 +233,6 @@ bool String::operator==(const char* cstr) const
 //     return str;
 // }
 // 
-// /*
-//  * Method contains
-//  */
-// 
-// bool KString::contains(const char* s) const
-// {
-//     return (str.find(s) != string::npos);
-// }
-// 
-// bool KString::contains(const string& s) const
-// {
-//     return (str.find(s) != string::npos);
-// }
-// 
-// bool KString::contains(const KString& s) const
-// {
-//     return (str.find(s) != string::npos);
-// }
 // 
 // /*
 //  * Method lstrip

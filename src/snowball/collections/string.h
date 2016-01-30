@@ -62,7 +62,7 @@ class String
      * Build a string from a std::string
      * @param str input string
      */
-     String(const std::string& str);
+    String(const std::string& str);
      
     /**
      * Constructor.
@@ -70,7 +70,7 @@ class String
      * Build a string from a C string
      * @param cstr input string
      */
-     String(const char* cstr);
+    String(const char* cstr);
      
      /**
       * Constructor.
@@ -116,7 +116,7 @@ class String
     /**
      * Destructor.
      */
-     virtual ~String();
+    virtual ~String();
     
     /**
      * Return the size of the string.
@@ -131,7 +131,7 @@ class String
      * Return true if both strings compared equal.
      * @param other string to be compared to
      */
-     bool operator==(const String& other) const;
+    bool operator==(const String& other) const;
 
     /**
      * Equality comparison.
@@ -139,7 +139,7 @@ class String
      * Return true if string and given standard string compare equals.
      * @param str standard string to be compared to
      */
-     bool operator==(const std::string& str) const;
+    bool operator==(const std::string& str) const;
 
     /**
      * Equality comparison.
@@ -147,12 +147,67 @@ class String
      * Return true if string and given C string compare equals.
      * @param str standard string to be compared to
      */
-     bool operator==(const char* cstr) const;    
+    bool operator==(const char* cstr) const;
+     
+    /**
+     * Stat whether string contain a character or a substring.
+     *
+     * @param sub substring to look for
+     */
+    bool contains(const std::string& sub) const;
+    
+    /**
+     * Stat whether string contain a character or a substring.
+     *
+     * @param sub substring to look for
+     */
+    bool contains(const String& sub) const;
+    
+    /**
+     * Stat whether string contain a character or a substring.
+     *
+     * @param sub substring to look for
+     */
+    bool contains(const char* sub) const;
+    
+    /**
+     * Stat whether string contain a character or a substring.
+     *
+     * @param sub character to look for
+     */
+    bool contains(const char sub) const;
+    
+    /**
+     * Stat whether string starts with specified character or string.
+     * 
+     * @param str string to look for
+     */
+    bool startswith(const std::string& str) const;
+
+    /**
+     * Stat whether string starts with specified character or string.
+     * 
+     * @param str string to look for
+     */
+    bool startswith(const String& str) const;
+    
+    /**
+     * Stat whether string starts with specified character or string.
+     * 
+     * @param cstr string to look for
+     */
+    bool startswith(const char* cstr) const;
+    
+    /**
+     * Stat whether string starts with specified character or string.
+     * 
+     * @param c character to look for
+     */
+    bool startswith(const char c) const;
     
 //     friend std::ostream& operator<<(std::ostream&, const String&);
 //     List<String> split(const std::string& sep) const;
 //     List<String> split() const;
-//     bool startswith(const std::string&) const;
 //     void lstrip();
 //     void lstrip(const char*);
 //     void lstrip(const std::string&);
@@ -165,9 +220,6 @@ class String
 //     void strip(const char*);
 //     void strip(const std::string&);
 //     void strip(const String&);
-//     bool contains(const char*) const;
-//     bool contains(const std::string&) const;
-//     bool contains(const String&) const;
 //     int toInt() const throw(ValueError);
 //     operator std::string() const;
 //     friend std::istream& getline(std::istream&, String&, char);

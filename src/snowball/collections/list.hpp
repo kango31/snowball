@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SNOWBALL_LIST_H
 
 #include <vector>
-#include <exception>
+#include <stdexcept>
 #include <algorithm>
 
 #include "snowball/exceptions/exceptions.h"
