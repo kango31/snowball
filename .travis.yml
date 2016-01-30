@@ -131,11 +131,13 @@ install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - DEPS_SRC="${TRAVIS_BUILD_DIR}/deps/src"
   - mkdir -p ${DEPS_SRC} && cd ${DEPS_SRC}
-  - CMAKE_URL="https://cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz"
-  - wget --quiet -O ${CMAKE_URL}
-  - tar -zxf cmake-2.8.12.2.tar.gz
-  - mkdir build-cmake-2.8.12.2 && cd build-cmake-2.8.12.2
-  - ../cmake-2.8.12.2/configure --prefix=${DEPS_DIR}
+  - CMAKE_VER="cmake-2.8.12.2"
+  - CMAKE_ARC="${CMAKE_VER}.tar.gz"
+  - CMAKE_URL="https://cmake.org/files/v2.8/${CMAKE_ARC}"
+  - wget --quiet -O ${CMAKE_ARC} ${CMAKE_URL}
+  - tar -zxf ${CMAKE_ARC}
+  - mkdir build-${CMAKE_VER} && cd build-${CMAKE_VER}
+  - ../${CMAKE_VER}/configure --prefix=${DEPS_DIR}
   - make
   - make install
   - export PATH={DEPS_DIR}/bin:$PATH
