@@ -66,6 +66,7 @@ target_include_directories(
     snowball_test
     PUBLIC
     src/
+    catch/
 )
 
 target_link_libraries(snowball_test snowball)
