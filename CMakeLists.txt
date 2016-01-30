@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)
 SET(CMAKE_INSTALL_PREFIX /usr/local)
 project(snowball)
 set(EXECUTABLE_OUTPUT_PATH bin)

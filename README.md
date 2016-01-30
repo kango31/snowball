@@ -1,4 +1,22 @@
+# Build status
+
 [![Build Status](https://travis-ci.org/kango31/snowball.svg?branch=master)](https://travis-ci.org/kango31/snowball)
+
+Run with Travis CI on Linux x86_64 with cmake 2.8.12.2 and the following compilers:
+- GCC 4.8, 4.9, 5.0
+- Clang 3.5, 3.6, 3.7, 3.8
+
+# Wiki
+
+Wiki is hosted on [Github](https://github.com/kango31/snowball/wiki).
+
+# Issues
+
+Issues are tracked on [Github](https://github.com/kango31/snowball/issues).
+
+# License
+
+Snowball is released under the terms of GNU GPL v3:
 
 Snowball library
 Copyright (C) 2016 Cédric Campguilhem
