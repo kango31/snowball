@@ -134,8 +134,8 @@ install:
   - CMAKE_VER="cmake-2.8.12.2"
   - CMAKE_ARC="${CMAKE_VER}.tar.gz"
   - CMAKE_URL="http://cmake.org/files/v2.8/${CMAKE_ARC}"
-  - echo wget --quiet -O ${CMAKE_ARC} ${CMAKE_URL}
-  - wget -O ${CMAKE_ARC} ${CMAKE_URL}
+  - echo wget --quiet -O ${CMAKE_ARC} ${CMAKE_URL} --no-check-certificate
+  - wget -O ${CMAKE_ARC} ${CMAKE_URL} --no-check-certificate
   - tar -zxf ${CMAKE_ARC}
   - mkdir build-${CMAKE_VER} && cd build-${CMAKE_VER}
   - ../${CMAKE_VER}/configure --prefix=${DEPS_DIR}
