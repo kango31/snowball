@@ -141,7 +141,9 @@ bool String::startswith(const char* cstr) const
 
 bool String::startswith(const char c) const
 {
-    return m_str.compare(0, 1, std::string(&c)) == 0;
+    std::string str(&c);
+    std::cout << "char: " << str << std::endl;
+    return m_str.compare(0, 1, str) == 0;
 }
 
 // /*

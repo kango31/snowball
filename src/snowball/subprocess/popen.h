@@ -5,6 +5,8 @@
 #ifndef SNOWBALL_POPEN_H
 #define SNOWBALL_POPEN_H
 
+#ifdef __gnu_linux__
+
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/types.h>
@@ -419,4 +421,5 @@ FILE* cfile(std::ofstream const& ofs);
  */
 FILE* cfile(std::ifstream const& ifs);
 
+#endif
 #endif

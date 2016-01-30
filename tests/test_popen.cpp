@@ -1,3 +1,5 @@
+#ifdef __gnu_linux__
+
 #include "catch.hpp"
 
 #include <stdio.h>
@@ -505,3 +507,5 @@ TEST_CASE("Popen class", "[popen]")
         REQUIRE (stdout == "4\n");
     }
 }
+
+#endif

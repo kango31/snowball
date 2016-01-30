@@ -1,3 +1,5 @@
+#ifdef __gnu_linux__
+
 #include <iostream>
 
 #include "popen.h"
@@ -863,3 +865,4 @@ void test6()
     std::cout << stdout;
 }
 
+#endif
