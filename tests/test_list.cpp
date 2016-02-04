@@ -126,8 +126,11 @@ TEST_CASE("list", "[collections]")
         List<int> list1 = {1, 2, 3, 4};
         List<int> list2 = {1, 2, 3};
         List<int> list3 = {1, 2, 3};
+        List<int> list4;
+        List<int> list5;
         REQUIRE (!(list1 == list2));
         REQUIRE (list2 == list3);
+        REQUIRE (list4 == list5);
     }
         
     SECTION("append")

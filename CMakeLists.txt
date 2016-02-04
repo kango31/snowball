@@ -16,13 +16,23 @@ set(CMAKE_CXX_FLAGS  "-std=c++11" )
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 #===============================================================================
+# Dependencies
+#===============================================================================
+
+#Boost locale
+find_package(Boost COMPONENTS locale REQUIRED)
+if (Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif (Boost_FOUND)
+
+#===============================================================================
 # snowball lib
 #===============================================================================
 
 #Manage version number
-set (SNOWBALL_VERSION_MAJOR 0)
-set (SNOWBALL_VERSION_MINOR 1)
-set (SNOWBALL_VERSION_PATCH 0)
+set(SNOWBALL_VERSION_MAJOR 0)
+set(SNOWBALL_VERSION_MINOR 1)
+set(SNOWBALL_VERSION_PATCH 0)
 add_definitions(-DSNOWBALL_VERSION_MAJOR=${SNOWBALL_VERSION_MAJOR})
 add_definitions(-DSNOWBALL_VERSION_MINOR=${SNOWBALL_VERSION_MINOR})
 add_definitions(-DSNOWBALL_VERSION_PATCH=${SNOWBALL_VERSION_PATCH})
@@ -45,6 +55,10 @@ target_include_directories(
     PUBLIC
     src/
 )
+
+if(Boost_FOUND)
+    target_link_libraries(snowball ${Boost_LIBRARIES})
+endif(Boost_FOUND)
 
 #===============================================================================
 # Unit tests
@@ -69,15 +83,19 @@ target_include_directories(
     catch/
 )
 
+if (Boost_FOUND)
+    target_link_libraries(snowball ${Boost_LIBRARIES})
+endif (Boost_FOUND)
+
 target_link_libraries(snowball_test snowball)
 
 add_custom_target(
     test
     #run verbose
-    #bin/snowball_test -s -d yes
+    bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    bin/snowball_test -s string
+    #bin/snowball_test -s string
     DEPENDS bin/snowball_test
     )
     

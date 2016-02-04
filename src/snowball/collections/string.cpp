@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+
 namespace snowball
 {
     
@@ -97,6 +98,25 @@ bool String::operator==(const char* cstr) const
 }
 
 /*
+ * operator!=
+ */
+
+bool String::operator!=(const String& other) const
+{
+    return m_str.compare(other.m_str) != 0;
+}
+
+bool String::operator!=(const std::string& str) const
+{
+    return m_str.compare(str) != 0;
+}
+
+bool String::operator!=(const char* cstr) const
+{
+    return m_str.compare(cstr) != 0;
+}
+
+/*
  * Method contains
  */
 
@@ -145,195 +165,455 @@ bool String::startswith(const char c) const
     return m_str.compare(0, 1, str) == 0;
 }
 
-// /*
-//  * Operator <<
-//  */
-// 
-// ostream& operator<<(ostream& os, const KString& str)
-// {
-//     os << str.str;
-//     return os;
-// }
-// 
-// /*
-//  * Method split
-//  */
-// 
-// List<KString> KString::split(const string& sep) const
-// {
-//     List<KString> fields;
-//     size_t pos, current;
-//     current = 0;
-//     int len = 0;
-//     while (true)
-//     {
-//         pos = str.find(sep, current);
-//         if (pos == string::npos)
-//         {
-//             fields.append(KString(str.substr(current)));
-//             break;
-//         }
-//         else
-//         {
-//             fields.append(KString(str.substr(current, pos - current)));
-//             current = pos + 1;
-//         }
-//     }
-//     return fields;
-// }
-// 
-// List<KString> KString::split() const
-// {
-//     List<KString> fields;
-//     size_t pos, current;
-//     string sep = " ";
-//     current = 0;
-//     int len = 0;
-//     while (true)
-//     {
-//         pos = str.find(sep, current);
-//         if (pos == string::npos)
-//         {
-//             fields.append(KString(str.substr(current)));
-//             break;
-//         }
-//         else if (pos == current)
-//             current++;
-//         else
-//         {
-//             fields.append(KString(str.substr(current, pos - current)));
-//             current = pos + 1;
-//         }
-//     }
-//     return fields;
-// }
-// 
-// /*
-//  * Method toInt
-//  */
-// 
-// int KString::toInt() const throw(ValueError)
-// {
-//     int value;
-//     try
-//     {
-//         value = stoi(str);
-//     }
-//     catch (exception er)
-//     {
-//         throw_extended(ValueError, "cannot be converted into int");
-//     }
-//     return value;
-// }
-// 
-// /*
-//  * operator string()
-//  */
-// KString::operator string() const
-// {
-//     return str;
-// }
-// 
-// 
-// /*
-//  * Method lstrip
-//  */
-// 
-// void KString::lstrip()
-// {
-//     size_t pos;
-//     pos = str.find_first_not_of("\n\r\t ");
-//     if (pos != string::npos)
-//         str.erase(str.begin(), str.begin() + pos);
-// }
-// 
-// void KString::lstrip(const char* s)
-// {
-//     size_t pos;
-//     pos = str.find_first_not_of(s);
-//     if (pos != string::npos)
-//         str.erase(str.begin(), str.begin() + pos);
-// }
-// 
-// void KString::lstrip(const string& s)
-// {
-//     size_t pos;
-//     pos = str.find_first_not_of(s);
-//     if (pos != string::npos)
-//         str.erase(str.begin(), str.begin() + pos);
-// }
-// 
-// void KString::lstrip(const KString& s)
-// {
-//     size_t pos;
-//     pos = str.find_first_not_of(s.str);
-//     if (pos != string::npos)
-//         str.erase(str.begin(), str.begin() + pos);
-// }
-// 
-// /*
-//  * Method rstrip
-//  */
-// 
-// void KString::rstrip()
-// {
-//     size_t pos;
-//     pos = str.find_last_not_of("\n\r\t ");
-//     if (pos != string::npos)
-//         str.erase(str.begin() + pos + 1, str.end());
-// }
-// 
-// void KString::rstrip(const char* s)
-// {
-//     size_t pos;
-//     pos = str.find_last_not_of(s);
-//     if (pos != string::npos)
-//         str.erase(str.begin() + pos + 1, str.end());
-// }
-// 
-// void KString::rstrip(const string& s)
-// {
-//     size_t pos;
-//     pos = str.find_last_not_of(s);
-//     if (pos != string::npos)
-//         str.erase(str.begin() + pos + 1, str.end());
-// }
-// 
-// void KString::rstrip(const KString& s)
-// {
-//     size_t pos;
-//     pos = str.find_last_not_of(s.str);
-//     if (pos != string::npos)
-//         str.erase(str.begin() + pos + 1, str.end());
-// }
-// 
-// /*
-//  * Method strip
-//  */
-// 
-// void KString::strip()
-// {
-//     lstrip();
-//     rstrip();
-// }
-// 
-// void KString::strip(const char* s)
-// {
-//     lstrip(s);
-//     rstrip(s);
-// }
-// 
-// void KString::strip(const string& s)
-// {
-//     lstrip(s);
-//     rstrip(s);
-// }
-// 
-// void KString::strip(const KString& s)
-// {
-//     lstrip(s);
-//     rstrip(s);
-// }
+/*
+ * Method endswith
+ */
+
+bool String::endswith(const std::string& str) const
+{
+    return m_str.compare(m_str.size() - str.size(), str.size(), str) == 0;
+}
+
+bool String::endswith(const String& str) const
+{
+    return m_str.compare(m_str.size() - str.size(), str.size(), str.m_str) == 0;
+}
+
+bool String::endswith(const char* cstr) const
+{    
+    
+    return m_str.compare(m_str.size() - std::char_traits<char>::length(cstr),
+                         std::char_traits<char>::length(cstr), 
+                         cstr) == 0;
+}
+
+bool String::endswith(const char c) const
+{
+    std::string str(1, c);
+    return m_str.compare(m_str.size() - 1, 1, str) == 0;
+}
+
+/*
+ * Method split
+ */
+
+List<String> String::split(const std::string& sep) const
+{
+    List<String> fields;
+    size_t pos, current;
+    current = 0;
+    while (true)
+    {
+        pos = m_str.find_first_of(sep, current);
+        if (pos == string::npos)
+        {
+            fields.append(String(m_str.substr(current)));
+            break;
+        }
+        else if (pos == current)
+            current++;
+        else
+        {
+            fields.append(String(m_str.substr(current, pos - current)));
+            current = pos + 1;
+        }
+    }
+    return fields;
+}
+
+List<String> String::split() const
+{
+    return split(std::string(" \t\r\n"));
+}
+
+List<String> String::split(const String& str) const
+{
+    return split(str.m_str);
+}
+
+List<String> String::split(const char* cstr) const
+{
+    return split(std::string(cstr));
+}
+
+List<String> String::split(const char c) const
+{
+    return split(std::string(1, c));
+}
+
+/*
+ * Operator <<
+ */
+
+ostream& operator<<(ostream& os, const String& str)
+{
+    os << str.m_str;
+    return os;
+}
+
+/*
+ * Method lstrip
+ */
+
+String& String::lstrip()
+{
+    return lstrip("\n\r\t ");
+}
+
+String& String::lstrip(const char* s)
+{
+    size_t pos;
+    pos = m_str.find_first_not_of(s);
+    if (pos != std::string::npos)
+        m_str.erase(m_str.begin(), m_str.begin() + pos);
+    return *this;
+}
+
+String& String::lstrip(const std::string& s)
+{
+    size_t pos;
+    pos = m_str.find_first_not_of(s);
+    if (pos != std::string::npos)
+        m_str.erase(m_str.begin(), m_str.begin() + pos);
+    return *this;
+}
+
+String& String::lstrip(const String& s)
+{
+    return lstrip(s.m_str);
+}
+
+String& String::lstrip(const char c)
+{
+    return lstrip(std::string(1, c));
+}
+
+String String::lstrip() const
+{
+    return lstrip("\n\r\t ");
+}
+
+String String::lstrip(const char* s) const
+{
+    size_t pos;
+    String copy(*this);
+    pos = copy.m_str.find_first_not_of(s);
+    if (pos != std::string::npos)
+        copy.m_str.erase(copy.m_str.begin(), copy.m_str.begin() + pos);
+    return copy;
+}
+
+String String::lstrip(const std::string& s) const
+{
+    size_t pos;
+    String copy(*this);
+    pos = copy.m_str.find_first_not_of(s);
+    if (pos != std::string::npos)
+        copy.m_str.erase(copy.m_str.begin(), copy.m_str.begin() + pos);
+    return copy;
+}
+
+String String::lstrip(const String& s) const
+{
+    return lstrip(s.m_str);
+}
+
+String String::lstrip(const char c) const
+{
+    return lstrip(std::string(1, c));
+}
+
+/*
+ * Method rstrip
+ */
+
+String& String::rstrip()
+{
+    return rstrip("\n\r\t ");
+}
+
+String& String::rstrip(const char* s)
+{
+    size_t pos;
+    pos = m_str.find_last_not_of(s);
+    if (pos != std::string::npos)
+        m_str.erase(m_str.begin() + pos + 1, m_str.end());
+    return *this;
+}
+
+String& String::rstrip(const std::string& s)
+{
+    size_t pos;
+    pos = m_str.find_last_not_of(s);
+    if (pos != std::string::npos)
+        m_str.erase(m_str.begin() + pos + 1, m_str.end());
+    return *this;
+}
+
+String& String::rstrip(const String& s)
+{
+    return rstrip(s.m_str);
+}
+
+String& String::rstrip(const char c)
+{
+    return rstrip(std::string(1, c));
+}
+
+String String::rstrip() const
+{
+    return rstrip("\n\r\t ");
+}
+
+String String::rstrip(const char* s) const
+{
+    size_t pos;
+    String copy(*this);
+    pos = copy.m_str.find_last_not_of(s);
+    if (pos != std::string::npos)
+        copy.m_str.erase(copy.m_str.begin() + pos + 1, copy.m_str.end());
+    return copy;
+}
+
+String String::rstrip(const std::string& s) const
+{
+    size_t pos;
+    String copy(*this);
+    pos = copy.m_str.find_last_not_of(s);
+    if (pos != std::string::npos)
+        copy.m_str.erase(copy.m_str.begin() + pos + 1, copy.m_str.end());
+    return copy;
+}
+
+String String::rstrip(const String& s) const
+{
+    return rstrip(s.m_str);
+}
+
+String String::rstrip(const char c) const
+{
+    return rstrip(std::string(1, c));
+}
+
+/*
+ * Method strip
+ */
+
+String& String::strip()
+{
+    return lstrip().rstrip();
+}
+
+String& String::strip(const char* s)
+{
+    return lstrip(s).rstrip(s);
+}
+
+String& String::strip(const std::string& s)
+{
+    return lstrip(s).rstrip(s);
+}
+
+String& String::strip(const String& s)
+{
+    return lstrip(s).rstrip(s);
+}
+
+String& String::strip(const char c)
+{
+    return lstrip(c).rstrip(c);
+}
+
+String String::strip() const
+{
+    return lstrip().rstrip();
+}
+
+String String::strip(const char* s) const
+{
+    return lstrip(s).rstrip(s);
+}
+
+String String::strip(const std::string& s) const
+{
+    return lstrip(s).rstrip(s);
+}
+
+String String::strip(const String& s) const
+{
+    return lstrip(s).rstrip(s);
+}
+
+String String::strip(const char c) const
+{
+    return lstrip(c).rstrip(c);
+}
+
+/*
+ * Method toInt
+ */
+
+int String::toInt(int base) const throw(ValueError)
+{
+    int value = 0;
+    std::size_t nbread = 0;
+    String str = strip();
+    try
+    {
+        value = std::stoi(str.m_str, &nbread, base);
+    }
+    catch (const exception& e)
+    {
+        THROW(ValueError, "invalid literal for int");
+    }
+    if (nbread < str.size())
+        THROW(ValueError, "invalid literal for int");
+    return value;
+}
+
+/*
+ * Method toFloat
+ */
+
+float String::toFloat() const throw(ValueError)
+{
+    float value = 0.;
+    std::size_t nbread = 0;
+    String str = strip();
+    try
+    {
+        value = std::stof(str.m_str, &nbread);
+    }
+    catch (const exception& e)
+    {
+        THROW(ValueError, "invalid literal for float");
+    }
+    if (nbread < str.size())
+        THROW(ValueError, "invalid literal for float");
+    return value;
+}
+
+/*
+ * Method toDouble
+ */
+
+double String::toDouble() const throw(ValueError)
+{
+    double value = 0.;
+    std::size_t nbread = 0;
+    String str = strip();
+    try
+    {
+        value = std::stod(str.m_str, &nbread);
+    }
+    catch (const exception& e)
+    {
+        THROW(ValueError, "invalid literal for double");
+    }
+    if (nbread < str.size())
+        THROW(ValueError, "invalid literal for double");
+    return value;
+}
+
+/*
+ * Method toBool
+ */
+
+bool String::toBool() const throw(ValueError)
+{
+    int value = 0;
+    std::size_t nbread = 0;
+    String str = strip();
+    try
+    {
+        value = std::stoi(str.m_str, &nbread);
+    }
+    catch (const exception& e)
+    {
+        THROW(ValueError, "invalid literal int");
+    }
+    if (nbread < str.size())
+        THROW(ValueError, "invalid literal int");
+    return value != 0;
+}
+
+/*
+ * operator string()
+ */
+
+String::operator string() const
+{
+    return m_str;
+}
+
+/*
+ * method upper
+ */
+
+String& String::upper()
+{
+    /*auto func = [](const char c){ std::locale loc(""); return std::toupper(c, loc); };
+    std::transform(m_str.begin(), 
+                   m_str.end(), 
+                   m_str.begin(), 
+                   std::function<char(const char)>(func));
+    return *this;*/
+    //boost::locale::generator gen;
+    //std::locale::global(gen("")); 
+    m_str = boost::locale::to_upper(m_str);
+    return *this;
+}
+
+String String::upper() const
+{
+    /*String copy(*this);
+    auto func = [](const char c){ std::locale loc(""); return std::toupper(c, loc); };
+    std::transform(copy.m_str.begin(), 
+                   copy.m_str.end(), 
+                   copy.m_str.begin(), 
+                   std::function<char(const char)>(func));
+    return copy;*/
+    String copy(*this);
+    //boost::locale::generator gen;
+    //std::locale::global(gen("")); 
+    copy.m_str = boost::locale::to_upper(copy.m_str);
+    return copy;
+}
+
+/*
+ * method lower
+ */
+
+String& String::lower()
+{
+    /*auto func = [](const char c){ std::locale loc(""); return std::tolower(c, loc); };
+    std::transform(m_str.begin(), 
+                   m_str.end(), 
+                   m_str.begin(), 
+                   std::function<char(const char)>(func));
+    return *this;*/
+    //boost::locale::generator gen;
+    //std::locale::global(gen("")); 
+    m_str = boost::locale::to_lower(m_str);
+    return *this;
+}
+
+String String::lower() const
+{
+    /*String copy(*this);
+    auto func = [](const char c){ std::locale loc(""); return std::tolower(c, loc); };
+    std::transform(copy.m_str.begin(), 
+                   copy.m_str.end(), 
+                   copy.m_str.begin(), 
+                   std::function<char(const char)>(func));
+    return copy;*/
+    String copy(*this);
+    //boost::locale::generator gen;
+    //std::locale::global(gen("")); 
+    copy.m_str = boost::locale::to_lower(copy.m_str);
+    return copy;
+}
+
 // 
 // /* 
 //  * Non-member function getline

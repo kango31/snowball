@@ -3,8 +3,12 @@
 [![Build Status](https://travis-ci.org/kango31/snowball.svg?branch=master)](https://travis-ci.org/kango31/snowball)
 
 Run with Travis CI on Linux x86_64 with cmake 2.8.12.2 and the following compilers:
-- GCC 4.8, <del>4.9</del>, <del>5.0</del>
-- Clang <del>3.5</del>, <del>3.6</del>, <del>3.7</del>, <del>3.8</del>
+- GCC 4.8, 4.9, 5.0
+- Clang 3.5, 3.6, 3.7, 3.8
+
+Run with Travis CI on Mac OS X x86_64 with cmake 2.8.12.2 and the following compilers:
+- XCode 6.4 and Clang (Apple LLVM v6.1)
+- XCode 7.0 and Clang (Apple LLVM v7.0)
 
 # Wiki
 
