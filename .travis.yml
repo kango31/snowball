@@ -9,8 +9,8 @@ matrix:
       compiler: clang
       addons: &clang35
         apt:
-          sources: ['llvm-toolchain-precise-3.5', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.5']
+          sources: ['llvm-toolchain-precise-3.5', 'ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['clang-3.5', 'libboost1.54-all-dev']
       env: COMPILER='clang++-3.5' BUILD_TYPE='Release'
 
     - os: linux
@@ -23,8 +23,8 @@ matrix:
       compiler: clang
       addons: &clang36
         apt:
-          sources: ['llvm-toolchain-precise-3.6', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.6']
+          sources: ['llvm-toolchain-precise-3.6', 'ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['clang-3.6', 'libboost1.54-all-dev']
       env: COMPILER='clang++-3.6' BUILD_TYPE='Release'
 
     - os: linux
@@ -37,8 +37,8 @@ matrix:
       compiler: clang
       addons: &clang37
         apt:
-          sources: ['llvm-toolchain-precise-3.7', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.7']
+          sources: ['llvm-toolchain-precise-3.7', 'ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['clang-3.7', 'libboost1.54-all-dev']
       env: COMPILER='clang++-3.7' BUILD_TYPE='Release'
 
     - os: linux
@@ -51,8 +51,8 @@ matrix:
       compiler: clang
       addons: &clang38
         apt:
-          sources: ['llvm-toolchain-precise', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.8']
+          sources: ['llvm-toolchain-precise', 'ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['clang-3.8', 'libboost1.54-all-dev']
       env: COMPILER='clang++-3.8' BUILD_TYPE='Release'
 
     - os: linux
@@ -66,8 +66,8 @@ matrix:
       compiler: gcc
       addons: &gcc48
         apt:
-         sources: ['ubuntu-toolchain-r-test']
-         packages: ['g++-4.8']
+         sources: ['ubuntu-toolchain-r-test', 'boost-latest']
+         packages: ['g++-4.8', 'libboost1.54-all-dev']
       env: COMPILER='g++-4.8' BUILD_TYPE='Release'
 
     - os: linux
@@ -80,8 +80,8 @@ matrix:
       compiler: gcc
       addons: &gcc49
         apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-4.9']
+          sources: ['ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['g++-4.9', 'libboost1.54-all-dev']
       env: COMPILER='g++-4.9' BUILD_TYPE='Release'
 
     - os: linux
@@ -94,8 +94,8 @@ matrix:
       compiler: gcc
       addons: &gcc5
         apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-5']
+          sources: ['ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['g++-5', 'libboost1.54-all-dev']
       env: COMPILER='g++-5' BUILD_TYPE='Release'
 
     - os: linux
