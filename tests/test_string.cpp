@@ -12,15 +12,6 @@ using namespace snowball;
 TEST_CASE("string", "[collections]")
 {
     
-    class Dummy
-    {
-        public:
-        Dummy(int a): m_a(a) { };
-        
-        private:
-        int m_a;
-    };
-    
     SECTION("empty constructor")
     {
         String test;
