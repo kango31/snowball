@@ -28,7 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <locale>
 #include <algorithm>
 #include <functional>
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
 #include <boost/locale.hpp>
+#endif
 
 #include "list.hpp"
 #include "snowball/exceptions/exceptions.h"
@@ -689,11 +691,13 @@ std::ostream& operator<<(std::ostream& os, const String& str);
 // std::istream& getline(std::istream&, String&, char);
 // std::istream& getline(std::istream&, String&);
 
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
 /**
  * This enables to set once and for all locale settings for boost locale
  */
 static boost::locale::generator __gen;
 static std::locale __loc = std::locale::global(__gen(""));
+#endif
 
 } //end of namespace snowball
 #endif

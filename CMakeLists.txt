@@ -20,9 +20,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 #===============================================================================
 
 #Boost locale
-find_package(Boost COMPONENTS locale REQUIRED)
+find_package(Boost OPTIONAL_COMPONENTS locale)
 if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
+    add_definitions(-DSNOWBALL_WITH_BOOST_LOCALE)
 endif (Boost_FOUND)
 
 #===============================================================================
@@ -95,7 +96,7 @@ add_custom_target(
     bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    #bin/snowball_test -s string
+    #bin/snowball_test -s string version
     DEPENDS bin/snowball_test
     )
     

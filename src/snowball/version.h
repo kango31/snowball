@@ -67,6 +67,11 @@ int minorVersion();
  */
 int patchVersion();
 
+/**
+ * State whether snowball is compiled with Boost.Locale
+ */
+bool withBoostLocale();
+
 } //namespace snowball
 
 #endif

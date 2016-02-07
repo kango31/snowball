@@ -552,31 +552,30 @@ String::operator string() const
 
 String& String::upper()
 {
-    /*auto func = [](const char c){ std::locale loc(""); return std::toupper(c, loc); };
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
+    m_str = boost::locale::to_upper(m_str);
+#else
+    auto func = [](const char c){ std::locale loc(""); return std::toupper(c, loc); };
     std::transform(m_str.begin(), 
                    m_str.end(), 
                    m_str.begin(), 
                    std::function<char(const char)>(func));
-    return *this;*/
-    //boost::locale::generator gen;
-    //std::locale::global(gen("")); 
-    m_str = boost::locale::to_upper(m_str);
+#endif    
     return *this;
 }
 
 String String::upper() const
 {
-    /*String copy(*this);
+    String copy(*this);
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
+    copy.m_str = boost::locale::to_upper(copy.m_str);
+#else
     auto func = [](const char c){ std::locale loc(""); return std::toupper(c, loc); };
     std::transform(copy.m_str.begin(), 
                    copy.m_str.end(), 
                    copy.m_str.begin(), 
                    std::function<char(const char)>(func));
-    return copy;*/
-    String copy(*this);
-    //boost::locale::generator gen;
-    //std::locale::global(gen("")); 
-    copy.m_str = boost::locale::to_upper(copy.m_str);
+#endif
     return copy;
 }
 
@@ -586,31 +585,30 @@ String String::upper() const
 
 String& String::lower()
 {
-    /*auto func = [](const char c){ std::locale loc(""); return std::tolower(c, loc); };
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
+    m_str = boost::locale::to_lower(m_str);
+#else
+    auto func = [](const char c){ std::locale loc(""); return std::tolower(c, loc); };
     std::transform(m_str.begin(), 
                    m_str.end(), 
                    m_str.begin(), 
                    std::function<char(const char)>(func));
-    return *this;*/
-    //boost::locale::generator gen;
-    //std::locale::global(gen("")); 
-    m_str = boost::locale::to_lower(m_str);
+#endif
     return *this;
 }
 
 String String::lower() const
 {
-    /*String copy(*this);
+    String copy(* this);
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
+    copy.m_str = boost::locale::to_lower(copy.m_str);
+#else    
     auto func = [](const char c){ std::locale loc(""); return std::tolower(c, loc); };
     std::transform(copy.m_str.begin(), 
                    copy.m_str.end(), 
                    copy.m_str.begin(), 
                    std::function<char(const char)>(func));
-    return copy;*/
-    String copy(*this);
-    //boost::locale::generator gen;
-    //std::locale::global(gen("")); 
-    copy.m_str = boost::locale::to_lower(copy.m_str);
+#endif
     return copy;
 }
 

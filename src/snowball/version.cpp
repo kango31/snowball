@@ -60,4 +60,13 @@ int patchVersion()
     return SNOWBALL_VERSION_PATCH;
 }
 
+bool withBoostLocale()
+{
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
+    return true;
+#else
+    return false;
+#endif
+}
+
 } //end of namespace snowball

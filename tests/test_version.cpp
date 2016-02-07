@@ -7,7 +7,7 @@
 using namespace snowball;
 
 
-TEST_CASE("versions", "[version]")
+TEST_CASE("version", "[version]")
 {    
     SECTION("version")
     {
@@ -31,6 +31,15 @@ TEST_CASE("versions", "[version]")
     SECTION("patchVersion")
     {
         REQUIRE (patchVersion() == SNOWBALL_VERSION_PATCH);
+    }
+    
+    SECTION("withBoostLocale")
+    {
+#ifdef SNOWBALL_WITH_BOOST_LOCALE
+        REQUIRE(withBoostLocale());
+#else
+        REQUIRE(!withBoostLocale());
+#endif
     }
     
 } //end of TEST_CASE

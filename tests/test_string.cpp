@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "snowball/collections/string.h"
+#include "snowball/version.h"
 
 using namespace snowball;
 
@@ -324,8 +325,13 @@ TEST_CASE("string", "[collections]")
         String test1("Hello 123 WorlD !!");
         REQUIRE (test1.upper() == "HELLO 123 WORLD !!");
         String test2("Cédric");
-        REQUIRE (test2.upper() == "CÉDRIC");
-        REQUIRE (test2.upper() == "C\u00C9DRIC");
+        if (withBoostLocale())
+        {
+            REQUIRE (test2.upper() == "CÉDRIC");
+            REQUIRE (test2.upper() == "C\u00C9DRIC");
+        }
+        else
+            REQUIRE (test2.upper() == "CéDRIC");
         const String test3(test1);
         REQUIRE (test3.upper() == "HELLO 123 WORLD !!");
     }
