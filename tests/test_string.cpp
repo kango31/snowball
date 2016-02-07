@@ -24,6 +24,12 @@ TEST_CASE("string", "[collections]")
         String test("Hello World!");
         REQUIRE (test.size() == 12);
     }
+    
+    SECTION("constructor from char")
+    {
+        String test('A');
+        REQUIRE (test == "A");
+    }
 
     SECTION("constructor from std::string")
     {
@@ -85,21 +91,21 @@ TEST_CASE("string", "[collections]")
         REQUIRE (!test1.contains('?'));
     }
     
-    SECTION("startswith")
+    SECTION("startsWith")
     {
         String test1("Hello World!");
         String test2("Hell");
         String test3("Hi");
         std::string str1("World");
         std::string str2("Earth");
-        REQUIRE (test1.startswith(test2));
-        REQUIRE (!test1.startswith(test3));
-        REQUIRE (!test1.startswith(str1));
-        REQUIRE (!test1.startswith(str2));
-        REQUIRE (test1.startswith("Hello "));
-        REQUIRE (!test1.startswith(" Hello"));
-        REQUIRE (test1.startswith('H'));
-        REQUIRE (!test1.startswith('?'));
+        REQUIRE (test1.startsWith(test2));
+        REQUIRE (!test1.startsWith(test3));
+        REQUIRE (!test1.startsWith(str1));
+        REQUIRE (!test1.startsWith(str2));
+        REQUIRE (test1.startsWith("Hello "));
+        REQUIRE (!test1.startsWith(" Hello"));
+        REQUIRE (test1.startsWith('H'));
+        REQUIRE (!test1.startsWith('?'));
     }
     
     SECTION("endswith")
@@ -109,14 +115,14 @@ TEST_CASE("string", "[collections]")
         String test3("World !");
         std::string str1("d!");
         std::string str2("ld !");
-        REQUIRE (test1.endswith(test2));
-        REQUIRE (!test1.endswith(test3));
-        REQUIRE (test1.endswith(str1));
-        REQUIRE (!test1.endswith(str2));
-        REQUIRE (test1.endswith("rld!"));
-        REQUIRE (!test1.endswith(" Hello"));
-        REQUIRE (test1.endswith('!'));
-        REQUIRE (!test1.endswith('?'));
+        REQUIRE (test1.endsWith(test2));
+        REQUIRE (!test1.endsWith(test3));
+        REQUIRE (test1.endsWith(str1));
+        REQUIRE (!test1.endsWith(str2));
+        REQUIRE (test1.endsWith("rld!"));
+        REQUIRE (!test1.endsWith(" Hello"));
+        REQUIRE (test1.endsWith('!'));
+        REQUIRE (!test1.endsWith('?'));
     }
     
     SECTION("split with space characters")
@@ -186,60 +192,60 @@ TEST_CASE("string", "[collections]")
         REQUIRE (test == "Hello!");
     }
     
-    SECTION("lstrip")
+    SECTION("leftStrip")
     {
         String test1("\t\t\t  Hello World !\r\n");
-        REQUIRE (test1.lstrip() == "Hello World !\r\n");
+        REQUIRE (test1.leftStrip() == "Hello World !\r\n");
         String test2("oiseau bleu");
-        REQUIRE (test2.lstrip("aeiouy") == "seau bleu");
+        REQUIRE (test2.leftStrip("aeiouy") == "seau bleu");
         String test3("mississipi");
-        REQUIRE (test3.lstrip(std::string("sim")) == "pi");
+        REQUIRE (test3.leftStrip(std::string("sim")) == "pi");
         String test4("aaaaaaaaaaaaaahhhhh!!!");
-        REQUIRE (test4.lstrip('a') == "hhhhh!!!");
+        REQUIRE (test4.leftStrip('a') == "hhhhh!!!");
         String test5("mississipi");
-        REQUIRE (test5.lstrip(String("sim")) == "pi");        
+        REQUIRE (test5.leftStrip(String("sim")) == "pi");        
     }
     
-    SECTION("lstrip with const String")
+    SECTION("leftStrip with const String")
     {
         const String test1("\t\t\t  Hello World !\r\n");
-        REQUIRE (test1.lstrip() == "Hello World !\r\n");
+        REQUIRE (test1.leftStrip() == "Hello World !\r\n");
         const String test2("oiseau bleu");
-        REQUIRE (test2.lstrip("aeiouy") == "seau bleu");
+        REQUIRE (test2.leftStrip("aeiouy") == "seau bleu");
         const String test3("mississipi");
-        REQUIRE (test3.lstrip(std::string("sim")) == "pi");
+        REQUIRE (test3.leftStrip(std::string("sim")) == "pi");
         const String test4("aaaaaaaaaaaaaahhhhh!!!");
-        REQUIRE (test4.lstrip('a') == "hhhhh!!!");
+        REQUIRE (test4.leftStrip('a') == "hhhhh!!!");
         const String test5("mississipi");
-        REQUIRE (test5.lstrip(String("sim")) == "pi");        
+        REQUIRE (test5.leftStrip(String("sim")) == "pi");        
     }
     
-    SECTION("rstrip")
+    SECTION("rightStrip")
     {
         String test1("\t\t\t  Hello World !\r\n");
-        REQUIRE (test1.rstrip() == "\t\t\t  Hello World !");
+        REQUIRE (test1.rightStrip() == "\t\t\t  Hello World !");
         String test2("oiseau bleu");
-        REQUIRE (test2.rstrip("aeiouy") == "oiseau bl");
+        REQUIRE (test2.rightStrip("aeiouy") == "oiseau bl");
         String test3("mississipi");
-        REQUIRE (test3.rstrip(std::string("sim")) == "mississip");
+        REQUIRE (test3.rightStrip(std::string("sim")) == "mississip");
         String test4("aaaaaaaaaaaaaahhhhh!!!");
-        REQUIRE (test4.rstrip('!') == "aaaaaaaaaaaaaahhhhh");
+        REQUIRE (test4.rightStrip('!') == "aaaaaaaaaaaaaahhhhh");
         String test5("mississipi");
-        REQUIRE (test5.rstrip(String("sim")) == "mississip");        
+        REQUIRE (test5.rightStrip(String("sim")) == "mississip");        
     }
     
-    SECTION("rstrip with const String")
+    SECTION("rightStrip with const String")
     {
         const String test1("\t\t\t  Hello World !\r\n");
-        REQUIRE (test1.rstrip() == "\t\t\t  Hello World !");
+        REQUIRE (test1.rightStrip() == "\t\t\t  Hello World !");
         const String test2("oiseau bleu");
-        REQUIRE (test2.rstrip("aeiouy") == "oiseau bl");
+        REQUIRE (test2.rightStrip("aeiouy") == "oiseau bl");
         const String test3("mississipi");
-        REQUIRE (test3.rstrip(std::string("sim")) == "mississip");
+        REQUIRE (test3.rightStrip(std::string("sim")) == "mississip");
         const String test4("aaaaaaaaaaaaaahhhhh!!!");
-        REQUIRE (test4.rstrip('!') == "aaaaaaaaaaaaaahhhhh");
+        REQUIRE (test4.rightStrip('!') == "aaaaaaaaaaaaaahhhhh");
         const String test5("mississipi");
-        REQUIRE (test5.rstrip(String("sim")) == "mississip");        
+        REQUIRE (test5.rightStrip(String("sim")) == "mississip");        
     }
     
     SECTION("strip")
@@ -380,5 +386,91 @@ TEST_CASE("string", "[collections]")
         String test;
         getline(ss, test, ';');
         REQUIRE (test == "hello");
+    }
+    
+    SECTION("forward iterator")
+    {
+        String test1("Hello");
+        const String test2("World");
+        std::vector<char> vect1 = {'H', 'e', 'l', 'l', 'o'};
+        std::vector<char> vect2 = {'W', 'o', 'r', 'l', 'd'};
+        String::iterator it1;
+        String::const_iterator it2;
+        std::vector<char>::iterator it = vect1.begin();
+        for (it1 = test1.begin(); it1 != test1.end(); ++it1)
+        {
+            REQUIRE (*it1 == *it);
+            ++it;
+        }
+        it = vect2.begin();
+        for (it2 = test2.begin(); it2 != test2.end(); ++it2)
+        {
+            REQUIRE (*it2 == *it);
+            ++it;
+        }
+    }
+
+    SECTION("reverse iterator")
+    {
+        String test1("Hello");
+        const String test2("World");
+        std::vector<char> vect1 = {'o', 'l', 'l', 'e', 'H'};
+        std::vector<char> vect2 = {'d', 'l', 'r', 'o', 'W'};
+        String::reverse_iterator it1;
+        String::const_reverse_iterator it2;
+        std::vector<char>::iterator it = vect1.begin();
+        for (it1 = test1.rbegin(); it1 != test1.rend(); ++it1)
+        {
+            REQUIRE (*it1 == *it);
+            ++it;
+        }
+        it = vect2.begin();
+        for (it2 = test2.rbegin(); it2 != test2.rend(); ++it2)
+        {
+            REQUIRE (*it2 == *it);
+            ++it;
+        }
+    }
+    
+    SECTION("comparison operators with strings")
+    {
+        String test1("Aircraft");
+        String test2("Bee");
+        String test3("Crow");
+        String test4("Duck");
+        REQUIRE (test1 < test2);
+        REQUIRE (test2 <= test2);
+        REQUIRE (test2 <= test3);
+        REQUIRE (test4 > test3);
+        REQUIRE (test4 >= test3);
+        REQUIRE (test4 >= test4);
+    }
+
+    SECTION("comparison operators with C strings")
+    {
+        String test1("Aircraft");
+        String test2("Bee");
+        String test3("Crow");
+        String test4("Duck");
+        REQUIRE (test1 < "Bee");
+        REQUIRE (test2 <= "Bee");
+        REQUIRE (test2 <= "Crow");
+        REQUIRE (test4 > "Crow");
+        REQUIRE (test4 >= "Crow");
+        REQUIRE (test3 >= "Crow");
+    }
+
+    SECTION("comparison operators with C strings")
+    {
+        String test1("Aircraft");
+        String test2("Bee");
+        String test3("Crow");
+        String test4("Duck");
+        REQUIRE (test1 < std::string("Bee"));
+        REQUIRE (test2 <= std::string("Bee"));
+        REQUIRE (test2 <= std::string("Crow"));
+        REQUIRE (test4 > std::string("Crow"));
+        REQUIRE (test4 >= std::string("Crow"));
+        REQUIRE (test3 >= std::string("Crow"));
     }
 }

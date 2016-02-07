@@ -50,6 +50,30 @@ class String
      * size type of String
      */
     typedef typename std::string::size_type size_type;
+    
+    /**
+     * @typedef iterator
+     * forward iterator for String
+     */
+    typedef typename std::string::iterator iterator;
+    
+    /**
+     * @typedef const_iterator
+     * forward iterator for const String
+     */
+    typedef typename std::string::const_iterator const_iterator;
+    
+    /**
+     * @typedef reverse_iterator
+     * reverse iterator for String
+     */
+    typedef typename std::string::reverse_iterator reverse_iterator;
+    
+    /**
+     * @typedef iterator
+     * reverse iterator for const String
+     */
+    typedef typename std::string::const_reverse_iterator const_reverse_iterator;
 
     private:
     
@@ -88,6 +112,15 @@ class String
       * @param c character to be duplicated
       */
      String(size_type n, char c);
+     
+     /**
+      * Constructor.
+      * 
+      * Build a string from a character.
+      * 
+      * @param c character
+      */
+     String(char c);
      
      /**
       * Copy constructor.
@@ -182,6 +215,114 @@ class String
     bool operator!=(const char* cstr) const;
     
     /**
+     * Lower than comparison
+     * 
+     * Return true if current string is before given string in lexicographic 
+     * order.
+     * @param other string to be compared to
+     */
+    bool operator<(const String& other) const;
+
+    /**
+     * Lower than comparison
+     * 
+     * Return true if current string is before given string in lexicographic 
+     * order.
+     * @param other string to be compared to
+     */
+    bool operator<(const std::string& str) const;
+
+    /**
+     * Lower than comparison
+     * 
+     * Return true if current string is before given string in lexicographic 
+     * order.
+     * @param other string to be compared to
+     */
+    bool operator<(const char* cstr) const;
+    
+    /**
+     * Lower than or equal to comparison
+     * 
+     * Return true if current string is before given string in lexicographic 
+     * order or compared equal.
+     * @param other string to be compared to
+     */
+    bool operator<=(const String& other) const;
+
+    /**
+     * Lower than or equal to comparison
+     * 
+     * Return true if current string is before given string in lexicographic 
+     * order or compared equal.
+     * @param other string to be compared to
+     */
+    bool operator<=(const std::string& str) const;
+
+    /**
+     * Lower than or equal to comparison
+     * 
+     * Return true if current string is before given string in lexicographic 
+     * order or compared equal.
+     * @param other string to be compared to
+     */
+    bool operator<=(const char* cstr) const;
+    
+    /**
+     * Greater than comparison
+     * 
+     * Return true if current string is after given string in lexicographic 
+     * order.
+     * @param other string to be compared to
+     */
+    bool operator>(const String& other) const;
+
+    /**
+     * Greater than comparison
+     * 
+     * Return true if current string is after given string in lexicographic 
+     * order.
+     * @param other string to be compared to
+     */
+    bool operator>(const std::string& str) const;
+
+    /**
+     * Greater than comparison
+     * 
+     * Return true if current string is after given string in lexicographic 
+     * order.
+     * @param other string to be compared to
+     */
+    bool operator>(const char* cstr) const;
+    
+    /**
+     * Greater than or equal to comparison
+     * 
+     * Return true if current string is after given string in lexicographic 
+     * order or compared equal.
+     * @param other string to be compared to
+     */
+    bool operator>=(const String& other) const;
+
+    /**
+     * Greater than or equal to comparison
+     * 
+     * Return true if current string is after given string in lexicographic 
+     * order or compared equal.
+     * @param other string to be compared to
+     */
+    bool operator>=(const std::string& str) const;
+
+    /**
+     * Greater than or equal to comparison
+     * 
+     * Return true if current string is after given string in lexicographic 
+     * order or compared equal.
+     * @param other string to be compared to
+     */
+    bool operator>=(const char* cstr) const;
+    
+    /**
      * Stat whether string contain a character or a substring.
      *
      * @param sub substring to look for
@@ -214,56 +355,56 @@ class String
      * 
      * @param str string to look for
      */
-    bool startswith(const std::string& str) const;
+    bool startsWith(const std::string& str) const;
 
     /**
      * Stat whether string starts with specified character or string.
      * 
      * @param str string to look for
      */
-    bool startswith(const String& str) const;
+    bool startsWith(const String& str) const;
     
     /**
      * Stat whether string starts with specified character or string.
      * 
      * @param cstr string to look for
      */
-    bool startswith(const char* cstr) const;
+    bool startsWith(const char* cstr) const;
     
     /**
      * Stat whether string starts with specified character or string.
      * 
      * @param c character to look for
      */
-    bool startswith(const char c) const;
+    bool startsWith(const char c) const;
     
     /**
      * Stat whether string ends with specified character or string.
      * 
      * @param str string to look for
      */
-    bool endswith(const std::string& str) const;
+    bool endsWith(const std::string& str) const;
 
     /**
      * Stat whether string ends with specified character or string.
      * 
      * @param str string to look for
      */
-    bool endswith(const String& str) const;
+    bool endsWith(const String& str) const;
     
     /**
      * Stat whether string ends with specified character or string.
      * 
      * @param cstr string to look for
      */
-    bool endswith(const char* cstr) const;
+    bool endsWith(const char* cstr) const;
     
     /**
      * Stat whether string ends with specified character or string.
      * 
      * @param c character to look for
      */
-    bool endswith(const char c) const;
+    bool endsWith(const char c) const;
     
     /**
      * Split string into sub-string.
@@ -318,7 +459,7 @@ class String
      * 
      * @return reference to itself
      */
-    String& lstrip();
+    String& leftStrip();
     
     /**
      * Strip the left of the string.
@@ -328,7 +469,7 @@ class String
      * @param str characters to be removed
      * @return reference to itself
      */
-    String& lstrip(const std::string& str);
+    String& leftStrip(const std::string& str);
         
     /**
      * Strip the left of the string.
@@ -338,7 +479,7 @@ class String
      * @param str characters to be removed
      * @return reference to itself
      */
-    String& lstrip(const String& str);
+    String& leftStrip(const String& str);
     
     /**
      * Strip the left of the string.
@@ -348,7 +489,7 @@ class String
      * @param cstr characters to be removed
      * @return reference to itself
      */
-    String& lstrip(const char* cstr);
+    String& leftStrip(const char* cstr);
     
     /**
      * Strip the left of the string.
@@ -358,7 +499,7 @@ class String
      * @param c character to be removed
      * @return reference to itself
      */
-    String& lstrip(const char c);
+    String& leftStrip(const char c);
 
     /**
      * Strip the right of the string.
@@ -367,7 +508,7 @@ class String
      * 
      * @return reference to itself
      */
-    String& rstrip();
+    String& rightStrip();
     
     /**
      * Strip the right of the string.
@@ -377,7 +518,7 @@ class String
      * @param str characters to be removed
      * @return reference to itself
      */
-    String& rstrip(const std::string& str);
+    String& rightStrip(const std::string& str);
         
     /**
      * Strip the right of the string.
@@ -387,7 +528,7 @@ class String
      * @param str characters to be removed
      * @return reference to itself
      */
-    String& rstrip(const String& str);
+    String& rightStrip(const String& str);
     
     /**
      * Strip the right of the string.
@@ -397,7 +538,7 @@ class String
      * @param cstr characters to be removed
      * @return reference to itself
      */
-    String& rstrip(const char* cstr);
+    String& rightStrip(const char* cstr);
     
     /**
      * Strip the right of the string.
@@ -407,7 +548,7 @@ class String
      * @param c character to be removed
      * @return reference to itself
      */
-    String& rstrip(const char c);
+    String& rightStrip(const char c);
 
     /**
      * Strip both sides of the string.
@@ -465,7 +606,7 @@ class String
      * 
      * @return a new string
      */
-    String lstrip() const;
+    String leftStrip() const;
     
     /**
      * Strip the left of the string.
@@ -475,7 +616,7 @@ class String
      * @param str characters to be removed
      * @return a new string
      */
-    String lstrip(const std::string& str) const;
+    String leftStrip(const std::string& str) const;
         
     /**
      * Strip the left of the string.
@@ -485,7 +626,7 @@ class String
      * @param str characters to be removed
      * @return a new string     
      */
-    String lstrip(const String& str) const;
+    String leftStrip(const String& str) const;
     
     /**
      * Strip the left of the string.
@@ -495,7 +636,7 @@ class String
      * @param cstr characters to be removed
      * @return a new string
      */
-    String lstrip(const char* cstr) const;
+    String leftStrip(const char* cstr) const;
     
     /**
      * Strip the left of the string.
@@ -505,7 +646,7 @@ class String
      * @param c character to be removed
      * @return a new string
      */
-    String lstrip(const char c) const;
+    String leftStrip(const char c) const;
 
     /**
      * Strip the right of the string.
@@ -514,7 +655,7 @@ class String
      * 
      * @return a new string
      */
-    String rstrip() const;
+    String rightStrip() const;
     
     /**
      * Strip the right of the string.
@@ -524,7 +665,7 @@ class String
      * @param str characters to be removed
      * @return a new string
      */
-    String rstrip(const std::string& str) const;
+    String rightStrip(const std::string& str) const;
         
     /**
      * Strip the right of the string.
@@ -534,7 +675,7 @@ class String
      * @param str characters to be removed
      * @return a new string
      */
-    String rstrip(const String& str) const;
+    String rightStrip(const String& str) const;
     
     /**
      * Strip the right of the string.
@@ -544,7 +685,7 @@ class String
      * @param cstr characters to be removed
      * @return a new string
      */
-    String rstrip(const char* cstr) const;
+    String rightStrip(const char* cstr) const;
     
     /**
      * Strip the right of the string.
@@ -554,7 +695,7 @@ class String
      * @param c character to be removed
      * @return a new string
      */
-    String rstrip(const char c) const;
+    String rightStrip(const char c) const;
 
     /**
      * Strip both sides of the string.
@@ -671,6 +812,46 @@ class String
      */
     operator std::string() const;
     
+    /**
+     * Return iterator to begin of string.
+     */
+    iterator begin();
+    
+    /**
+     * Return iterator to end of string.
+     */
+    iterator end();
+    
+    /**
+     * Return reverse iterator to begin of string.
+     */
+    reverse_iterator rbegin();
+    
+    /**
+     * Return reverse iterator to end of string.
+     */
+    reverse_iterator rend();
+
+    /**
+     * Return iterator to begin of const string.
+     */
+    const_iterator begin() const;
+    
+    /**
+     * Return iterator to end of const string.
+     */
+    const_iterator end() const;
+    
+    /**
+     * Return reverse iterator to begin of const string.
+     */
+    const_reverse_iterator rbegin() const;
+    
+    /**
+     * Return reverse iterator to end of const string.
+     */
+    const_reverse_iterator rend() const;
+
     
     friend std::ostream& operator<<(std::ostream& os, const String& str);
     friend std::istream& operator>>(std::istream& is, String& str);

@@ -41,6 +41,8 @@ String::String(typename String::size_type n, char c): m_str(n, c) { }
 
 String::String(const String& other): m_str(other.m_str) { }
 
+String::String(char c): String(1, c) { }
+
 /*
  * Assignment operator
  */
@@ -141,45 +143,45 @@ bool String::contains(const char sub) const
 }
 
 /*
- * Method startswith
+ * Method startsWith
  */
 
-bool String::startswith(const std::string& str) const
+bool String::startsWith(const std::string& str) const
 {
     return m_str.compare(0, str.size(), str) == 0;
 }
 
-bool String::startswith(const String& str) const
+bool String::startsWith(const String& str) const
 {
     return m_str.compare(0, str.size(), str.m_str) == 0;
 }
 
-bool String::startswith(const char* cstr) const
+bool String::startsWith(const char* cstr) const
 {    
     return m_str.compare(0, std::char_traits<char>::length(cstr), cstr) == 0;
 }
 
-bool String::startswith(const char c) const
+bool String::startsWith(const char c) const
 {
     std::string str(1, c);
     return m_str.compare(0, 1, str) == 0;
 }
 
 /*
- * Method endswith
+ * Method endsWith
  */
 
-bool String::endswith(const std::string& str) const
+bool String::endsWith(const std::string& str) const
 {
     return m_str.compare(m_str.size() - str.size(), str.size(), str) == 0;
 }
 
-bool String::endswith(const String& str) const
+bool String::endsWith(const String& str) const
 {
     return m_str.compare(m_str.size() - str.size(), str.size(), str.m_str) == 0;
 }
 
-bool String::endswith(const char* cstr) const
+bool String::endsWith(const char* cstr) const
 {    
     
     return m_str.compare(m_str.size() - std::char_traits<char>::length(cstr),
@@ -187,7 +189,7 @@ bool String::endswith(const char* cstr) const
                          cstr) == 0;
 }
 
-bool String::endswith(const char c) const
+bool String::endsWith(const char c) const
 {
     std::string str(1, c);
     return m_str.compare(m_str.size() - 1, 1, str) == 0;
@@ -262,24 +264,15 @@ istream& operator>>(istream& is, String& str)
 }
 
 /*
- * Method lstrip
+ * Method leftStrip
  */
 
-String& String::lstrip()
+String& String::leftStrip()
 {
-    return lstrip("\n\r\t ");
+    return leftStrip("\n\r\t ");
 }
 
-String& String::lstrip(const char* s)
-{
-    size_t pos;
-    pos = m_str.find_first_not_of(s);
-    if (pos != std::string::npos)
-        m_str.erase(m_str.begin(), m_str.begin() + pos);
-    return *this;
-}
-
-String& String::lstrip(const std::string& s)
+String& String::leftStrip(const char* s)
 {
     size_t pos;
     pos = m_str.find_first_not_of(s);
@@ -288,22 +281,31 @@ String& String::lstrip(const std::string& s)
     return *this;
 }
 
-String& String::lstrip(const String& s)
+String& String::leftStrip(const std::string& s)
 {
-    return lstrip(s.m_str);
+    size_t pos;
+    pos = m_str.find_first_not_of(s);
+    if (pos != std::string::npos)
+        m_str.erase(m_str.begin(), m_str.begin() + pos);
+    return *this;
 }
 
-String& String::lstrip(const char c)
+String& String::leftStrip(const String& s)
 {
-    return lstrip(std::string(1, c));
+    return leftStrip(s.m_str);
 }
 
-String String::lstrip() const
+String& String::leftStrip(const char c)
 {
-    return lstrip("\n\r\t ");
+    return leftStrip(std::string(1, c));
 }
 
-String String::lstrip(const char* s) const
+String String::leftStrip() const
+{
+    return leftStrip("\n\r\t ");
+}
+
+String String::leftStrip(const char* s) const
 {
     size_t pos;
     String copy(*this);
@@ -313,7 +315,7 @@ String String::lstrip(const char* s) const
     return copy;
 }
 
-String String::lstrip(const std::string& s) const
+String String::leftStrip(const std::string& s) const
 {
     size_t pos;
     String copy(*this);
@@ -323,35 +325,26 @@ String String::lstrip(const std::string& s) const
     return copy;
 }
 
-String String::lstrip(const String& s) const
+String String::leftStrip(const String& s) const
 {
-    return lstrip(s.m_str);
+    return leftStrip(s.m_str);
 }
 
-String String::lstrip(const char c) const
+String String::leftStrip(const char c) const
 {
-    return lstrip(std::string(1, c));
+    return leftStrip(std::string(1, c));
 }
 
 /*
- * Method rstrip
+ * Method rightStrip
  */
 
-String& String::rstrip()
+String& String::rightStrip()
 {
-    return rstrip("\n\r\t ");
+    return rightStrip("\n\r\t ");
 }
 
-String& String::rstrip(const char* s)
-{
-    size_t pos;
-    pos = m_str.find_last_not_of(s);
-    if (pos != std::string::npos)
-        m_str.erase(m_str.begin() + pos + 1, m_str.end());
-    return *this;
-}
-
-String& String::rstrip(const std::string& s)
+String& String::rightStrip(const char* s)
 {
     size_t pos;
     pos = m_str.find_last_not_of(s);
@@ -360,22 +353,31 @@ String& String::rstrip(const std::string& s)
     return *this;
 }
 
-String& String::rstrip(const String& s)
+String& String::rightStrip(const std::string& s)
 {
-    return rstrip(s.m_str);
+    size_t pos;
+    pos = m_str.find_last_not_of(s);
+    if (pos != std::string::npos)
+        m_str.erase(m_str.begin() + pos + 1, m_str.end());
+    return *this;
 }
 
-String& String::rstrip(const char c)
+String& String::rightStrip(const String& s)
 {
-    return rstrip(std::string(1, c));
+    return rightStrip(s.m_str);
 }
 
-String String::rstrip() const
+String& String::rightStrip(const char c)
 {
-    return rstrip("\n\r\t ");
+    return rightStrip(std::string(1, c));
 }
 
-String String::rstrip(const char* s) const
+String String::rightStrip() const
+{
+    return rightStrip("\n\r\t ");
+}
+
+String String::rightStrip(const char* s) const
 {
     size_t pos;
     String copy(*this);
@@ -385,7 +387,7 @@ String String::rstrip(const char* s) const
     return copy;
 }
 
-String String::rstrip(const std::string& s) const
+String String::rightStrip(const std::string& s) const
 {
     size_t pos;
     String copy(*this);
@@ -395,14 +397,14 @@ String String::rstrip(const std::string& s) const
     return copy;
 }
 
-String String::rstrip(const String& s) const
+String String::rightStrip(const String& s) const
 {
-    return rstrip(s.m_str);
+    return rightStrip(s.m_str);
 }
 
-String String::rstrip(const char c) const
+String String::rightStrip(const char c) const
 {
-    return rstrip(std::string(1, c));
+    return rightStrip(std::string(1, c));
 }
 
 /*
@@ -411,52 +413,52 @@ String String::rstrip(const char c) const
 
 String& String::strip()
 {
-    return lstrip().rstrip();
+    return leftStrip().rightStrip();
 }
 
 String& String::strip(const char* s)
 {
-    return lstrip(s).rstrip(s);
+    return leftStrip(s).rightStrip(s);
 }
 
 String& String::strip(const std::string& s)
 {
-    return lstrip(s).rstrip(s);
+    return leftStrip(s).rightStrip(s);
 }
 
 String& String::strip(const String& s)
 {
-    return lstrip(s).rstrip(s);
+    return leftStrip(s).rightStrip(s);
 }
 
 String& String::strip(const char c)
 {
-    return lstrip(c).rstrip(c);
+    return leftStrip(c).rightStrip(c);
 }
 
 String String::strip() const
 {
-    return lstrip().rstrip();
+    return leftStrip().rightStrip();
 }
 
 String String::strip(const char* s) const
 {
-    return lstrip(s).rstrip(s);
+    return leftStrip(s).rightStrip(s);
 }
 
 String String::strip(const std::string& s) const
 {
-    return lstrip(s).rstrip(s);
+    return leftStrip(s).rightStrip(s);
 }
 
 String String::strip(const String& s) const
 {
-    return lstrip(s).rstrip(s);
+    return leftStrip(s).rightStrip(s);
 }
 
 String String::strip(const char c) const
 {
-    return lstrip(c).rstrip(c);
+    return leftStrip(c).rightStrip(c);
 }
 
 /*
@@ -636,5 +638,137 @@ istream& getline(istream& is, String& str)
 {
     return std::getline(is, str.m_str);
 }
-    
+
+/*
+ * method: begin
+ */
+
+typename String::iterator String::begin()
+{
+    return m_str.begin();
+}
+
+typename String::const_iterator String::begin() const
+{
+    return m_str.begin();
+}
+
+/*
+ * method: end
+ */
+
+typename String::iterator String::end()
+{
+    return m_str.end();
+}
+
+typename String::const_iterator String::end() const
+{
+    return m_str.end();
+}
+
+/*
+ * method: rbegin
+ */
+
+typename String::reverse_iterator String::rbegin()
+{
+    return m_str.rbegin();
+}
+
+typename String::const_reverse_iterator String::rbegin() const
+{
+    return m_str.rbegin();
+}
+
+/*
+ * method: rend
+ */
+
+typename String::reverse_iterator String::rend()
+{
+    return m_str.rend();
+}
+
+typename String::const_reverse_iterator String::rend() const
+{
+    return m_str.rend();
+}
+
+/*
+ * method: operator<
+ */
+
+bool String::operator<(const std::string& other) const
+{
+    return m_str < other;
+};
+
+bool String::operator<(const char* other) const
+{
+    return m_str < other;
+};
+
+bool String::operator<(const String& other) const
+{
+    return m_str < other.m_str;
+};
+
+/*
+ * method: operator<=
+ */
+
+bool String::operator<=(const std::string& other) const
+{
+    return m_str <= other;
+};
+
+bool String::operator<=(const char* other) const
+{
+    return m_str <= other;
+};
+
+bool String::operator<=(const String& other) const
+{
+    return m_str <= other.m_str;
+};
+
+/*
+ * method: operator>
+ */
+
+bool String::operator>(const std::string& other) const
+{
+    return m_str > other;
+};
+
+bool String::operator>(const char* other) const
+{
+    return m_str > other;
+};
+
+bool String::operator>(const String& other) const
+{
+    return m_str > other.m_str;
+};
+
+/*
+ * method: operator>=
+ */
+
+bool String::operator>=(const std::string& other) const
+{
+    return m_str >= other;
+};
+
+bool String::operator>=(const char* other) const
+{
+    return m_str >= other;
+};
+
+bool String::operator>=(const String& other) const
+{
+    return m_str >= other.m_str;
+};
+
 } //end of namespace snowball
