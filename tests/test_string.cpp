@@ -177,6 +177,15 @@ TEST_CASE("string", "[collections]")
         REQUIRE (ss.str() == "It's raining cats and dogs today !");
     }
     
+    SECTION("operator>>")
+    {
+        String test;
+        std::stringstream ss;
+        ss.str("Hello!");
+        ss >> test;
+        REQUIRE (test == "Hello!");
+    }
+    
     SECTION("lstrip")
     {
         String test1("\t\t\t  Hello World !\r\n");
@@ -345,5 +354,31 @@ TEST_CASE("string", "[collections]")
         const String test3(test1);
         REQUIRE (test3.lower() == "hello 123 world !!");
     }
-
+    
+    SECTION("cast to std::string")
+    {
+        String test("la même sensation de déjà vu");
+        std::string output1(test);
+        REQUIRE (output1 == "la même sensation de déjà vu");
+        std::string output2 = static_cast<std::string>(test);
+        REQUIRE (output2 == "la même sensation de déjà vu");
+    }
+    
+    SECTION("getline")
+    {
+        std::stringstream ss;
+        ss.str("hello; world; 123;");
+        String test;
+        getline(ss, test);
+        REQUIRE (test == "hello; world; 123;");
+    }
+    
+    SECTION("getline with delimiter")
+    {
+        std::stringstream ss;
+        ss.str("hello; world; 123;");
+        String test;
+        getline(ss, test, ';');
+        REQUIRE (test == "hello");
+    }
 }

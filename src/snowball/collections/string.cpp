@@ -252,6 +252,16 @@ ostream& operator<<(ostream& os, const String& str)
 }
 
 /*
+ * Operator >>
+ */
+
+istream& operator>>(istream& is, String& str)
+{
+    is >> str.m_str;
+    return is;
+}
+
+/*
  * Method lstrip
  */
 
@@ -612,19 +622,19 @@ String String::lower() const
     return copy;
 }
 
-// 
-// /* 
-//  * Non-member function getline
-//  */
-// 
-// istream& getline(istream& is, KString& s, char delim)
-// {
-//     return std::getline(is, s.str, delim);
-// }
-// 
-// istream& getline(istream& is, KString& s)
-// {
-//     return std::getline(is, s.str);
-// }
+
+/* 
+ * Non-member function getline
+ */
+
+istream& getline(istream& is, String& str, char delim)
+{
+    return std::getline(is, str.m_str, delim);
+}
+
+istream& getline(istream& is, String& str)
+{
+    return std::getline(is, str.m_str);
+}
     
 } //end of namespace snowball

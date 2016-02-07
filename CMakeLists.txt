@@ -96,7 +96,7 @@ add_custom_target(
     bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    #bin/snowball_test -s string version
+    #bin/snowball_test -s string
     DEPENDS bin/snowball_test
     )
     

@@ -671,10 +671,12 @@ class String
      */
     operator std::string() const;
     
-    friend std::ostream& operator<<(std::ostream& os, const String& str);
     
-//     friend std::istream& getline(std::istream&, String&, char);
-//     friend std::istream& getline(std::istream&, String&);
+    friend std::ostream& operator<<(std::ostream& os, const String& str);
+    friend std::istream& operator>>(std::istream& is, String& str);
+    
+    friend std::istream& getline(std::istream&, String&, char);
+    friend std::istream& getline(std::istream&, String&);
 };
 
 /**
@@ -687,9 +689,38 @@ class String
  */
 std::ostream& operator<<(std::ostream& os, const String& str);
 
+/**
+ * Operator>>
+ * 
+ * Get a string from input stream.
+ * 
+ * @param str string
+ * @param is input stream
+ */
+std::istream& operator>>(std::istream& is, String& str);
 
-// std::istream& getline(std::istream&, String&, char);
-// std::istream& getline(std::istream&, String&);
+/**
+ * Getline
+ * 
+ * Extract characters from input stream and put them in string until end-of-line
+ * character is encountered.
+ * 
+ * @param is input stream
+ * @param str output string
+ */
+std::istream& getline(std::istream& is, String& str);
+
+/**
+ * Getline
+ * 
+ * Extract characters from input stream and put them in string until delimiter
+ * character is encountered.
+ * 
+ * @param is input stream
+ * @param str output string
+ * @param delim delimiter character
+ */
+std::istream& getline(std::istream& is, String& str, char delim);
 
 #ifdef SNOWBALL_WITH_BOOST_LOCALE
 /**
