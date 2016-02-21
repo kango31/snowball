@@ -420,7 +420,7 @@ class List
     /**
      * Operator+=
      * 
-     * This methods does exactely the same than List<T, Alloc>::extend.
+     * This methods does exactly the same than List<T, Alloc>::extend.
      * 
      * @param list list used to extend current one
      */

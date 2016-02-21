@@ -188,6 +188,37 @@ class ValueError: public Exception
     virtual ~ValueError();
 };
 
+/**
+ * KeyError exception.
+ */
+class KeyError: public Exception
+{
+    public:
+    
+    /**
+     * Constructor (basic exception)
+     * 
+     * @param msg exception message
+     */
+    KeyError(std::string msg);
+    
+    /**
+     * Constructor (extended exception)
+     * 
+     * @param msg exception message
+     * @param func function name
+     * @param filename file name
+     * @param lineno line number
+     */
+    KeyError(std::string msg, std::string filename, std::string func, 
+               int lineno);
+               
+    /**
+     * Destructor
+     */
+    virtual ~KeyError();
+};
+
 } //end of namespace snowball
 
 #endif

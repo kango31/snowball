@@ -93,3 +93,17 @@ ValueError::ValueError(string msg, string filename, string func, int lineno):
 
 //Destructor
 ValueError::~ValueError() {}
+
+//=============================================================================
+// KeyError
+//=============================================================================
+
+//Constructor
+
+KeyError::KeyError(string msg): Exception(msg) {}
+
+KeyError::KeyError(string msg, string filename, string func, int lineno): 
+    Exception(msg, filename, func, lineno) {}
+
+//Destructor
+KeyError::~KeyError() {}
