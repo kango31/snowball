@@ -7,7 +7,6 @@
 
 #include "snowball/decorators/timeit.hpp"
 #include "snowball/decorators/decorator.hpp"
-#include "snowball/collections/hash.hpp"
 
 
 using namespace snowball;

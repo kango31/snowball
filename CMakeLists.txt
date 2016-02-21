@@ -93,10 +93,10 @@ target_link_libraries(snowball_test snowball)
 add_custom_target(
     test
     #run verbose
-    #bin/snowball_test -s -d yes
+    bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    bin/snowball_test -s dictionary
+    #bin/snowball_test -s dictionary
     DEPENDS bin/snowball_test
     )
     
