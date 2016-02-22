@@ -96,7 +96,7 @@ TEST_CASE("timeit", "[decorators]")
 {
     SECTION("wallTime")
     {
-        TimeIt<void(int)> timer(mysleep); //git ::sleep required for MacOS X
+        TimeIt<void(int)> timer(mysleep);
         timer(1);
         REQUIRE (almostEquals(timer.wallTime(), 1000., 1.));
     }
