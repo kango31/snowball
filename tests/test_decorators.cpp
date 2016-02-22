@@ -98,6 +98,7 @@ TEST_CASE("timeit", "[decorators]")
     {
         TimeIt<void(int)> timer(mysleep);
         timer(1);
+        std::cout << timer.wallTime() << std::endl;
         REQUIRE (almostEquals(timer.wallTime(), 1000., 1.));
     }
     
