@@ -1,0 +1,18 @@
+Scanning dependencies of target snowball
+[  8%] Building CXX object CMakeFiles/snowball.dir/src/snowball/exceptions/exceptions.cpp.o
+[ 16%] Building CXX object CMakeFiles/snowball.dir/src/snowball/subprocess/popen.cpp.o
+[ 25%] Building CXX object CMakeFiles/snowball.dir/src/snowball/collections/string.cpp.o
+[ 33%] Building CXX object CMakeFiles/snowball.dir/src/snowball/version.cpp.o
+Linking CXX static library lib/libsnowball.a
+[ 33%] Built target snowball
+Scanning dependencies of target snowball_test
+[ 41%] Building CXX object CMakeFiles/snowball_test.dir/tests/test.cpp.o
+[ 50%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_exceptions.cpp.o
+[ 58%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_decorators.cpp.o
+[ 66%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_version.cpp.o
+[ 75%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_popen.cpp.o
+[ 83%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_string.cpp.o
+[ 91%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_list.cpp.o
+[100%] Building CXX object CMakeFiles/snowball_test.dir/tests/test_algorithms.cpp.o
+Linking CXX executable bin/snowball_test
+[100%] Built target snowball_test
