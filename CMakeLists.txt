@@ -96,7 +96,7 @@ add_custom_target(
     bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    #bin/snowball_test -s dictionary
+    #bin/snowball_test -s hash
     DEPENDS bin/snowball_test
     )
     
