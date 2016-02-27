@@ -27,7 +27,7 @@ bool almostEquals(float a, float b, float eps=1.e-6)
     return abs(a - b) < eps;
 };
 
-void sleep(int seconds)
+void mysleep(int seconds)
 {
     std::this_thread::sleep_for(std::chrono::seconds(seconds));
 };
@@ -96,9 +96,9 @@ TEST_CASE("timeit", "[decorators]")
 {
     SECTION("wallTime")
     {
-        TimeIt<void(int)> timer(::sleep); //git ::sleep required for MacOS X
+        TimeIt<void(int)> timer(mysleep);
         timer(1);
-        REQUIRE (almostEquals(timer.wallTime(), 1000., 1.));
+        REQUIRE (almostEquals(timer.wallTime(), 1000., 5.));
     }
     
     SECTION("cpuTime")
