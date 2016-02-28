@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * @file
  */
 
-#ifndef SNOWBALL_COLLECTIONS_DICTIONARY_HPP
-#define SNOWBALL_COLLECTIONS_DICTIONARY_HPP
+#ifndef SNOWBALL_DICTIONARY_HPP
+#define SNOWBALL_DICTIONARY_HPP
 
 #include <unordered_map>
 #include <stdexcept>

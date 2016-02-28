@@ -37,6 +37,14 @@
           <df name="test.dir">
           </df>
         </df>
+        <df name="doc">
+          <df name="html">
+            <df name="search">
+            </df>
+          </df>
+          <df name="latex">
+          </df>
+        </df>
         <df name="lib">
         </df>
       </df>
@@ -47,8 +55,11 @@
         <df name="snowball">
           <df name="collections">
             <in>algorithms.hpp</in>
+            <in>dictionary.hpp</in>
+            <in>hash.hpp</in>
             <in>iterator.h</in>
             <in>list.hpp</in>
+            <in>newfile.h</in>
             <in>string.cpp</in>
             <in>string.h</in>
           </df>
@@ -72,13 +83,17 @@
         <in>test.cpp</in>
         <in>test_algorithms.cpp</in>
         <in>test_decorators.cpp</in>
+        <in>test_dictionary.cpp</in>
+        <in>test_dummy.cpp</in>
         <in>test_exceptions.cpp</in>
+        <in>test_hash.cpp</in>
         <in>test_list.cpp</in>
         <in>test_popen.cpp</in>
         <in>test_string.cpp</in>
         <in>test_version.cpp</in>
       </df>
     </df>
+    <itemPath>nbproject/project.properties</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -120,6 +135,54 @@
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}"</runcommand>
         <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+    <conf name="Test" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>${MAKE} test</runcommandpicklistitem>
+          <runcommandpicklistitem>make doc</runcommandpicklistitem>
+          <runcommandpicklistitem>make test</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>make test</runcommand>
+        <rundir>./build</rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
