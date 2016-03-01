@@ -327,7 +327,7 @@ class List
      * @return true if both lists are equal
      */
     bool operator==(const List<T, Alloc>& other) const;
-    
+
     /**
      * Append an item to the end of the list
      * 
@@ -572,7 +572,8 @@ List<T, Alloc>::List(const List<T, Alloc>& other, const allocator_type& alloc):
 template <typename T, typename Alloc>
 List<T, Alloc>& List<T, Alloc>::operator=(const List<T, Alloc>& other)
 {
-    m_vector = other.m_vector;
+    if (this != &other)
+        m_vector = other.m_vector;
     return *this;
 }
 
@@ -646,7 +647,7 @@ bool List<T, Alloc>::operator==(const List<T, Alloc>& other) const
     {
         for (int i = 0; i < size(); ++i)
         {
-            if (m_vector.at(i) != other.m_vector.at(i))
+            if (m_vector[i] != other.m_vector[i])
                 return false;
         }
     return true;

@@ -12,13 +12,7 @@
         <group>
             <file>file:/home/cedric/NetBeansProjects/snowball/src/snowball/collections/dictionary.hpp</file>
             <file>file:/home/cedric/NetBeansProjects/snowball/tests/test_dictionary.cpp</file>
-            <file>file:/home/cedric/NetBeansProjects/snowball/build/doc/html/index.html</file>
-            <file>file:/home/cedric/NetBeansProjects/snowball/tests/test_dummy.cpp</file>
-            <file>file:/home/cedric/NetBeansProjects/snowball/tests/test_algorithms.cpp</file>
             <file>file:/home/cedric/NetBeansProjects/snowball/CMakeLists.txt</file>
-            <file>file:/home/cedric/NetBeansProjects/snowball/src/snowball/collections/hash.hpp</file>
-            <file>file:/home/cedric/NetBeansProjects/snowball/src/snowball/collections/algorithms.hpp</file>
-            <file>file:/home/cedric/NetBeansProjects/snowball/tests/test_exceptions.cpp</file>
         </group>
     </open-files>
 </project-private>

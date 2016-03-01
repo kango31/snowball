@@ -21,9 +21,15 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 #Boost locale
 find_package(Boost OPTIONAL_COMPONENTS locale)
-if (Boost_FOUND)
+if (Boost_LOCALE_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     add_definitions(-DSNOWBALL_WITH_BOOST_LOCALE)
+endif (Boost_LOCALE_FOUND)
+#Boost header-only (functional/hash)
+find_package(Boost OPTIONAL_COMPONENTS locale)
+if (Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    add_definitions(-DSNOWBALL_WITH_BOOST_HASH)
 endif (Boost_FOUND)
 
 #===============================================================================
@@ -57,9 +63,9 @@ target_include_directories(
     src/
 )
 
-if(Boost_FOUND)
+if(Boost_LOCALE_FOUND)
     target_link_libraries(snowball ${Boost_LIBRARIES})
-endif(Boost_FOUND)
+endif(Boost_LOCALE_FOUND)
 
 #===============================================================================
 # Unit tests
@@ -84,10 +90,6 @@ target_include_directories(
     catch/
 )
 
-if (Boost_FOUND)
-    target_link_libraries(snowball ${Boost_LIBRARIES})
-endif (Boost_FOUND)
-
 target_link_libraries(snowball_test snowball)
 
 add_custom_target(
@@ -96,7 +98,7 @@ add_custom_target(
     bin/snowball_test -s -d yes
     #stops at first error
     #bin/snowball_test -a
-    #bin/snowball_test -s dictionary
+    #bin/snowball_test -s dictionary list
     DEPENDS bin/snowball_test
     )
     

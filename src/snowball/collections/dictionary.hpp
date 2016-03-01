@@ -27,10 +27,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 
 #include "hash.hpp"
+#include "list.hpp"
 #include "../exceptions/exceptions.h"
+
+#ifdef SNOWBALL_WITH_BOOST_HASH
+#include <boost/functional/hash.hpp>
+#endif //SNOWBALL_WITH_BOOST_HASH
 
 namespace snowball
 {
+
 
 //==============================================================================
 // DICTIONARY DECLARATION
@@ -39,7 +45,7 @@ namespace snowball
 /**
  * Implements a dictionary (hash table) on top of std::unordered_map.
  * 
- * The dictionary class works be default with std::hash to provide hash values 
+ * The dictionary class works by default with boost::hash to provide hash values 
  * to keys. The key shall also have an operator== implemented to handle 
  * collisions in the hash table. This collision is by default checked by 
  * std::equal_to but may be tuned at convenience by user.
@@ -48,10 +54,14 @@ namespace snowball
  * resides in that hash table is unordered.
  */
 template <typename Key, 
-          typename Value, 
+          typename Value,
+#ifdef SNOWBALL_WITH_BOOST_HASH
+          typename Hash=boost::hash<Key>,
+#else
           typename Hash=std::hash<Key>,
+#endif
           typename Pred=std::equal_to<Key>,
-          typename Alloc=std::allocator<std::pair<Key, Value> > >
+          typename Alloc=std::allocator<std::pair<const Key, Value> > >
 class Dictionary
 {
 private:
@@ -78,6 +88,20 @@ public:
     Dictionary();
     
     /**
+     * Copy constructor
+     * 
+     * @param other dictionary to be copied
+     */
+    Dictionary(const Dictionary& other);
+    
+    /**
+     * Assignment operator
+     * 
+     * @param other dictionary to be assigned from
+     */
+    Dictionary& operator=(const Dictionary& other);
+    
+    /**
      * Destructor
      */
     virtual ~Dictionary();
@@ -92,18 +116,75 @@ public:
     /**
      * Return item at specified key.
      * 
-     * @param key
+     * If key does not exist, it is added to dictionary and the value associated
+     * is generated from the default constructor of Value.
+     * 
+     * @param key key of item to be retrieved
      */
     Value& operator[](const Key& key);
     
     /**
      * Return item at specified key.
      * 
-     * @param key
+     * If key does not exist, it is added to dictionary and the value associated
+     * is generated from the default constructor of Value.
+     * 
+     * @param key key of item to be retrieved
      */
     Value operator[](const Key& key) const;
     
+    /**
+     * Return item at specified key. If no such key exists, it returns instead
+     * the default value provided and dictionary is left unchanged.
+     * 
+     * @param key  key of item to be retrieved
+     * @param default value returned when key is not found
+     */
+    Value& get(const Key& key, Value& defaultValue);
+
+    /**
+     * Return item at specified key. If no such key exists, it returns instead
+     * the default value provided and dictionary is left unchanged.
+     * 
+     * The move semantics here helps when a literal is passed as argument for 
+     * default value.
+     * 
+     * @param key  key of item to be retrieved
+     * @param default value returned when key is not found
+     */
+    Value& get(const Key& key, Value&& defaultValue);
     
+    /**
+     * Return item at specified key. If no such key exists, it returns instead
+     * the default value provided and dictionary is left unchanged.
+     * 
+     * @param key  key of item to be retrieved
+     * @param default value returned when key is not found
+     */
+    Value get(const Key& key, Value& defaultValue) const;
+
+    /**
+     * Return item at specified key. If no such key exists, it returns instead
+     * the default value provided and dictionary is left unchanged.
+     * 
+     * The move semantics here helps when a literal is passed as argument for 
+     * default value.
+     * 
+     * @param key  key of item to be retrieved
+     * @param default value returned when key is not found
+     */
+    Value get(const Key& key, Value&& defaultValue) const;
+    
+    /**
+     * Return a list of all dictionary keys.
+     */
+    List<Key> keys() const;
+
+    /**
+     * Return a list of all dictionary values.
+     */
+    List<Value> values() const;
+
 private:
 
     /**
@@ -123,6 +204,23 @@ private:
 
 template <typename K, typename V, typename H, typename P, typename A>
 Dictionary<K, V, H, P, A>::Dictionary() { };
+
+template <typename K, typename V, typename H, typename P, typename A>
+Dictionary<K, V, H, P, A>::Dictionary(const Dictionary& other)
+    :m_map(other.m_map)
+{ };
+
+/*
+ * Assignment operator
+ */
+
+template <typename K, typename V, typename H, typename P, typename A>
+Dictionary<K, V, H, P, A>& Dictionary<K, V, H, P, A>::operator=(const Dictionary& other)
+{ 
+    if (this != &other)
+        m_map = other.m_map;
+    return *this;
+};
 
 /*
  * Destructor
@@ -158,6 +256,77 @@ V Dictionary<K, V, H, P, A>::operator[](const K& key) const
     return m_map[key];
 }
 
+/*
+ * method: get
+ */
+
+template <typename K, typename V, typename H, typename P, typename A>
+V& Dictionary<K, V, H, P, A>::get(const K& key, V& defaultValue)
+{
+    typename map_type::iterator it = m_map.find(key);
+    if (it == m_map.end())
+        return defaultValue;
+    else
+        return it->second;
+}
+
+template <typename K, typename V, typename H, typename P, typename A>
+V& Dictionary<K, V, H, P, A>::get(const K& key, V&& defaultValue)
+{
+    typename map_type::iterator it = m_map.find(key);
+    if (it == m_map.end())
+        return defaultValue;
+    else
+        return it->second;
+}
+
+template <typename K, typename V, typename H, typename P, typename A>
+V Dictionary<K, V, H, P, A>::get(const K& key, V& defaultValue) const
+{
+    typename map_type::const_iterator it = m_map.find(key);
+    if (it == m_map.end())
+        return defaultValue;
+    else
+        return it->second;
+}
+
+template <typename K, typename V, typename H, typename P, typename A>
+V Dictionary<K, V, H, P, A>::get(const K& key, V&& defaultValue) const
+{
+    typename map_type::const_iterator it = m_map.find(key);
+    if (it == m_map.end())
+        return defaultValue;
+    else
+        return it->second;
+}
+
+/*
+ * method: keys
+ */
+
+template <typename K, typename V, typename H, typename P, typename A>
+List<K> Dictionary<K, V, H, P, A>::keys() const
+{
+    List<K> output;
+    typename map_type::const_iterator it;
+    for (it = m_map.begin(); it != m_map.end(); ++it)
+        output.append(it->first);
+    return output;
+}
+
+/*
+ * method: values
+ */
+
+template <typename K, typename V, typename H, typename P, typename A>
+List<V> Dictionary<K, V, H, P, A>::values() const
+{
+    List<V> output;
+    typename map_type::const_iterator it;
+    for (it = m_map.begin(); it != m_map.end(); ++it)
+        output.append(it->second);
+    return output;    
+}
 } //end of namespace snowball
 
 #endif

@@ -13,6 +13,22 @@
 using namespace snowball;
 using namespace std;
 
+int& funct1(int& a)
+{
+    cout << "ref " << a << endl;
+    return a;
+}
+
+int& funct1(int&& a)
+{
+    cout << "move " << a << endl;
+    return a;
+}
+
+//void funct1(int a)
+//{
+//    cout << "no ref " << a << endl;
+//}
 
 class HashableDummy
 {
@@ -66,6 +82,17 @@ TEST_CASE("dictionary", "[collections]")
         Dictionary<HashableDummy, int, Hash<HashableDummy> > dct3;
         REQUIRE (dct3.size() == 0);
     }
+    
+    SECTION("assignment operator")
+    {
+        Dictionary<string, int> dct1;
+        dct1["one"] = 1;
+        dct1["two"] = 2;
+        Dictionary<string, int> dct2;
+        dct2 = dct1;
+        REQUIRE(dct2.size() == 2);
+        REQUIRE(dct2["two"] == 2);
+    }
 
     SECTION("operator[] with non-const dictionary")
     {
@@ -99,6 +126,42 @@ TEST_CASE("dictionary", "[collections]")
         vector<int> vect3(vect2);
         cout << hasher2(vect2) << " " << hasher2(vect3) << endl;
         cout << reinterpret_cast<const char*>(&vect1) << endl;
+    }
+    
+    SECTION("keys and values")
+    {
+        Dictionary<int, string> dict;
+        dict[1] = "one";
+        dict[2] = "two";
+        dict[3] = "three";
+        List<string> values = dict.values();
+        List<int> keys = dict.keys();
+        values.sort();
+        keys.sort();
+        REQUIRE (keys == List<int>({1, 2, 3}));
+        REQUIRE (values == List<string>({"one", "three", "two"}));
+    }
+    
+    SECTION("get with default value")
+    {
+        Dictionary<string, int> dict;
+        dict["one"] = 1;
+        dict["two"] = 2;
+        const Dictionary<string, int> cdict(dict);
+        REQUIRE (dict.get("one", 0) == 1);
+        REQUIRE (dict.get("three", 3) == 3);
+        REQUIRE (dict.size() == 2);
+        REQUIRE (cdict.get("two", 0) == 2);
+        REQUIRE (cdict.get("three", 3) == 3);
+        REQUIRE (cdict.size() == 2);
+        Dictionary<string, string> dict2;
+        dict2["one"] = "un";
+        dict2["two"] = "deux";
+        REQUIRE (dict2.get("one", "n/a") == "un");
+        dict2.get("two", "n/a") = "dos";
+        REQUIRE (dict2.get("two", "n/a") == "dos");
+        dict2.get("three", "n/a") = "tres";
+        REQUIRE (dict2.size() == 2);
     }
     
 }

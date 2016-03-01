@@ -72,6 +72,11 @@ int patchVersion();
  */
 bool withBoostLocale();
 
+/**
+ * State whether snowball is compiled with Boost Functional/Hash
+ */
+bool withBoostHash();
+
 } //namespace snowball
 
 #endif

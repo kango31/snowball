@@ -42,4 +42,13 @@ TEST_CASE("version", "[version]")
 #endif
     }
     
+    SECTION("withBoostHash")
+    {
+#ifdef SNOWBALL_WITH_BOOST_HASH
+        REQUIRE(withBoostHash());
+#else
+        REQUIRE(!withBoostHash());
+#endif        
+    }
+    
 } //end of TEST_CASE

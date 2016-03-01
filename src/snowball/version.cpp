@@ -69,4 +69,12 @@ bool withBoostLocale()
 #endif
 }
 
+bool withBoostHash()
+{
+#ifdef SNOWBALL_WITH_BOOST_HASH
+    return true;
+#else
+    return false;
+#endif
+}
 } //end of namespace snowball

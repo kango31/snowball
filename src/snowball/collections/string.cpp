@@ -49,7 +49,8 @@ String::String(char c): String(1, c) { }
 
 String& String::operator=(const String& other)
 {
-    m_str = other.m_str;
+    if (this != &other)
+        m_str = other.m_str;
     return *this;
 }
 
