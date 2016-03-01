@@ -10,7 +10,7 @@ matrix:
       addons: &clang35
         apt:
           sources: ['llvm-toolchain-precise-3.5', 'ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['clang-3.5', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+          packages: ['clang-3.5', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='clang++-3.5' BUILD_TYPE='Release'
 
     - os: linux
@@ -24,7 +24,7 @@ matrix:
       addons: &clang36
         apt:
           sources: ['llvm-toolchain-precise-3.6', 'ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['clang-3.6', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+          packages: ['clang-3.6', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='clang++-3.6' BUILD_TYPE='Release'
 
     - os: linux
@@ -38,7 +38,7 @@ matrix:
       addons: &clang37
         apt:
           sources: ['llvm-toolchain-precise-3.7', 'ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['clang-3.7', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+          packages: ['clang-3.7', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='clang++-3.7' BUILD_TYPE='Release'
 
     - os: linux
@@ -52,7 +52,7 @@ matrix:
       addons: &clang38
         apt:
           sources: ['llvm-toolchain-precise', 'ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['clang-3.8', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+          packages: ['clang-3.8', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='clang++-3.8' BUILD_TYPE='Release'
 
     - os: linux
@@ -67,7 +67,7 @@ matrix:
       addons: &gcc48
         apt:
          sources: ['ubuntu-toolchain-r-test', 'boost-latest']
-         packages: ['g++-4.8', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+         packages: ['g++-4.8', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='g++-4.8' BUILD_TYPE='Release'
 
     - os: linux
@@ -81,7 +81,7 @@ matrix:
       addons: &gcc49
         apt:
           sources: ['ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['g++-4.9', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+          packages: ['g++-4.9', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='g++-4.9' BUILD_TYPE='Release'
 
     - os: linux
@@ -95,7 +95,7 @@ matrix:
       addons: &gcc5
         apt:
           sources: ['ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['g++-5', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost-dev']
+          packages: ['g++-5', 'libboost-locale1.55.0', 'libboost-locale1.55-dev', 'libboost1.55-dev']
       env: COMPILER='g++-5' BUILD_TYPE='Release'
 
     - os: linux
