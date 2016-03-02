@@ -98,7 +98,7 @@ TEST_CASE("timeit", "[decorators]")
     {
         TimeIt<void(int)> timer(mysleep);
         timer(1);
-        REQUIRE (almostEquals(timer.wallTime(), 1000., 5.));
+        REQUIRE (almostEquals(timer.wallTime(), 1000., 10.));
     }
     
     SECTION("cpuTime")
